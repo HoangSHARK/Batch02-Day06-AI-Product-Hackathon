@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{ product.name or 'Sản phẩm' }} - Nhà thuốc FPT Long Châu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="shortcut icon" href="https://nhathuoclongchau.com.vn/favicon.ico?v=3"/>
+  <style>
+    :root {
+      --blue-600: #0037c1;
+      --blue-500: #1250dc;
+      --blue-400: #306de4;
+      --blue-100: #eaeffa;
+      --blue-50: #f0fbff;
+      --green-700: #12b76a;
+      --green-100: #f6fef9;
+      --red-700: #f04438;
+      --yellow-700: #f79009;
+      --gray-100: #f6f7f9;
+      --gray-200: #e4e8ed;
+      --gray-300: #d9dfe5;
+      --gray-500: #a9b2be;
+      --gray-600: #657384;
+      --gray-700: #4a4f63;
+      --gray-800: #2f364a;
+      --gray-900: #20283d;
+      --white: #fff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: linear-gradient(135deg, #1250dc, #2167dd);
+      padding: 12px 0;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 16px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .header a.logo img { height: 40px; }
+    .header .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      color: white; text-decoration: none; font-size: 14px; font-weight: 500;
+      padding: 8px 16px; border-radius: 8px;
+      background: rgba(255,255,255,0.12); transition: background .2s;
+    }
+    .header .back-btn:hover { background: rgba(255,255,255,0.22); }
+    .header .back-btn svg { width: 20px; height: 20px; }
+    .header .hotline {
+      margin-left: auto; color: white; font-size: 14px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .header .hotline a { color: #ffd700; font-weight: 600; text-decoration: none; }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb-bar {
+      background: white; border-bottom: 1px solid var(--gray-200); padding: 10px 0;
+    }
+    .breadcrumb-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 16px;
+      font-size: 13px; color: var(--gray-600);
+    }
+    .breadcrumb-inner a { color: var(--blue-500); text-decoration: none; }
+    .breadcrumb-inner a:hover { text-decoration: underline; }
+    .breadcrumb-inner span { margin: 0 6px; }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      max-width: 1200px; margin: 20px auto; padding: 0 16px;
+      display: grid; grid-template-columns: 1fr 400px; gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .main-content { grid-template-columns: 1fr; }
+    }
+
+    /* ===== PRODUCT INFO CARD ===== */
+    .product-card {
+      background: white; border-radius: 16px; padding: 28px;
+      box-shadow: 0 1px 8px rgba(0,39,102,0.06);
+    }
+    .product-card .badge {
+      display: inline-block; padding: 4px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .badge-normal { background: #eaeffa; color: var(--blue-600); }
+    .badge-rx { background: #fef3f2; color: var(--red-700); }
+
+    .product-card h1 {
+      font-size: 22px; font-weight: 700; color: var(--gray-900);
+      margin-bottom: 8px; line-height: 1.35;
+    }
+    .product-meta {
+      font-size: 13px; color: var(--gray-600); margin-bottom: 16px;
+    }
+    .product-meta strong { color: var(--blue-500); }
+
+    .price-box {
+      display: flex; align-items: baseline; gap: 8px;
+      padding: 16px 20px; border-radius: 12px;
+      background: linear-gradient(135deg, #f0fbff, #eaeffa); margin-bottom: 24px;
+    }
+    .price-box .price {
+      font-size: 28px; font-weight: 700; color: var(--blue-600);
+    }
+    .price-box .unit { font-size: 15px; color: var(--gray-600); }
+    .price-box .specs {
+      margin-left: auto; font-size: 13px; color: var(--gray-600);
+      background: white; padding: 4px 10px; border-radius: 6px;
+    }
+
+    /* Info sections */
+    .info-section {
+      margin-bottom: 20px; padding: 16px 20px;
+      border-radius: 12px; border: 1px solid var(--gray-200);
+      background: white;
+    }
+    .info-section .section-title {
+      font-size: 14px; font-weight: 600; color: var(--gray-800);
+      margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+    }
+    .info-section .section-title .icon { font-size: 18px; }
+    .info-section .section-content {
+      font-size: 14px; color: var(--gray-700); line-height: 1.7;
+    }
+
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-item {
+      padding: 12px 16px; border-radius: 10px; background: var(--gray-100);
+    }
+    .info-item .label {
+      font-size: 12px; color: var(--gray-500); text-transform: uppercase;
+      font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px;
+    }
+    .info-item .value { font-size: 14px; color: var(--gray-800); font-weight: 500; }
+
+    .warning-box {
+      background: #fffbfa; border: 1px solid #fee4e2; border-radius: 12px;
+      padding: 16px 20px; margin-top: 16px;
+    }
+    .warning-box .section-title { color: var(--red-700); }
+    .warning-box .section-content { color: #b42318; font-style: italic; }
+
+    .description-section {
+      margin-top: 20px; padding: 20px;
+      border-radius: 12px; border: 1px solid var(--gray-200); background: white;
+    }
+    .description-section h3 {
+      font-size: 16px; font-weight: 600; margin-bottom: 12px;
+      color: var(--gray-900); display: flex; align-items: center; gap: 8px;
+    }
+    .description-html {
+      font-size: 14px; color: var(--gray-700); line-height: 1.8;
+    }
+    .description-html img { max-width: 100%; border-radius: 8px; }
+
+    /* ===== AI CHAT PANEL ===== */
+    .ai-panel {
+      position: sticky; top: 80px; height: fit-content;
+    }
+    .ai-card {
+      background: white; border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,39,102,0.08);
+      overflow: hidden; display: flex; flex-direction: column;
+      max-height: calc(100vh - 100px);
+    }
+    .ai-card-header {
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #1250dc, #306de4);
+      color: white;
+    }
+    .ai-card-header h3 {
+      font-size: 16px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ai-card-header p {
+      font-size: 12px; opacity: 0.85; margin-top: 4px;
+    }
+    .ai-chat-body {
+      flex: 1; overflow-y: auto; padding: 16px;
+      min-height: 300px; max-height: 450px;
+      display: flex; flex-direction: column; gap: 12px;
+      background: #f8fafc;
+    }
+    .ai-msg {
+      max-width: 90%; padding: 12px 16px;
+      border-radius: 14px; font-size: 13px; line-height: 1.6;
+      animation: msgIn 0.3s ease;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ai-msg.bot {
+      background: white; color: var(--gray-800);
+      border: 1px solid var(--gray-200);
+      border-bottom-left-radius: 4px; align-self: flex-start;
+    }
+    .ai-msg.user {
+      background: linear-gradient(135deg, #1250dc, #306de4);
+      color: white; border-bottom-right-radius: 4px; align-self: flex-end;
+    }
+    .ai-msg.bot strong { color: var(--blue-600); }
+    .ai-msg.blocked {
+      background: #fef3f2; border-color: #fee4e2; color: #b42318;
+    }
+
+    .ai-suggestions {
+      padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 6px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .ai-suggestions button {
+      padding: 6px 12px; border-radius: 20px; border: 1px solid var(--blue-500);
+      background: var(--blue-100); color: var(--blue-500);
+      font-size: 12px; cursor: pointer; transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .ai-suggestions button:hover {
+      background: var(--blue-500); color: white;
+    }
+
+    .ai-input-area {
+      padding: 12px 16px; border-top: 1px solid var(--gray-200);
+      display: flex; gap: 8px; background: white;
+    }
+    .ai-input-area input {
+      flex: 1; padding: 10px 14px; border-radius: 10px;
+      border: 1px solid var(--gray-300); font-size: 13px;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color .2s;
+    }
+    .ai-input-area input:focus { border-color: var(--blue-500); }
+    .ai-input-area button {
+      padding: 10px 18px; border-radius: 10px; border: none;
+      background: linear-gradient(135deg, #1250dc, #306de4);
+      color: white; font-weight: 600; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      transition: opacity .2s;
+    }
+    .ai-input-area button:hover { opacity: 0.9; }
+    .ai-input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .typing-indicator {
+      display: flex; gap: 4px; padding: 12px 16px; align-self: flex-start;
+    }
+    .typing-indicator span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gray-400); animation: bounce 1.4s infinite;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* Markdown in AI messages */
+    .ai-msg p { margin: 4px 0; }
+    .ai-msg ul, .ai-msg ol { padding-left: 18px; margin: 4px 0; }
+    .ai-msg code { background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+    .ai-msg strong { font-weight: 600; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--gray-900); color: var(--gray-500);
+      text-align: center; padding: 20px; margin-top: 40px;
+      font-size: 13px;
+    }
+    .footer a { color: var(--blue-400); text-decoration: none; }
+
+    /* Loading spinner */
+    .spinner { display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+      border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <a class="logo" href="/">
+      <img alt="Long Châu" src="https://cdn.nhathuoclongchau.com.vn/v1/static/smalls/logo_default_web_78584a5cc6.png"/>
+    </a>
+    <a class="back-btn" href="/">
+      <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.7 4.3a1 1 0 010 1.4L9.4 12l6.3 6.3a1 1 0 01-1.4 1.4l-7-7a1 1 0 010-1.4l7-7a1 1 0 011.4 0z" fill="currentColor"/>
+      </svg>
+      Về trang chủ
+    </a>
+    <div class="hotline" style="margin-left: auto; display: flex; align-items: center; gap: 16px;">
+      <span>📞 Tư vấn: <a href="tel:18006928" style="color: #ffd700; font-weight: 600; text-decoration: none;">1800 6928</a></span>
+      <a href="/gio-hang" class="cart-btn" style="position: relative; color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: background .2s;">
+        <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;">
+          <path d="M3 3h2l.4 2M5.4 5h15.2l-1.5 9H6.5L4.8 5zM9 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm11 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Giỏ hàng</span>
+        <span id="cart-badge-count" style="background: var(--red-700); color: white; font-size: 11px; font-weight: 700; border-radius: 50%; padding: 1px 6px; min-width: 18px; text-align: center; margin-left: 2px; display: none;">0</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <div class="breadcrumb-inner">
+    <a href="/">Trang chủ</a>
+    <span>›</span>
+    {% if product.categories %}
+      {% for cat in product.categories %}
+        <a href="/">{{ cat }}</a><span>›</span>
+      {% endfor %}
+    {% elif product.category %}
+      <a href="/">{{ product.category }}</a><span>›</span>
+    {% endif %}
+    <span style="color: var(--gray-700);">{{ product.name or 'Sản phẩm' }}</span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <!-- LEFT: Product Info -->
+  <div class="product-info">
+    <div class="product-card">
+      <!-- Badge -->
+      {% if product.is_prescription %}
+        <div class="badge badge-rx">⚕️ Thuốc kê đơn</div>
+      {% else %}
+        <div class="badge badge-normal">
+          {{ product.category or (product.categories[-1] if product.categories else 'Sản phẩm') }}
+        </div>
+      {% endif %}
+
+      <!-- Title -->
+      <h1>{{ product.name or 'Sản phẩm Long Châu' }}</h1>
+
+      <!-- Meta -->
+      <div class="product-meta">
+        {% if product.brand %}
+          Thương hiệu: <strong>{{ product.brand }}</strong>
+        {% endif %}
+        {% if product.brandOrigin %}
+          | Xuất xứ: <strong>{{ product.brandOrigin }}</strong>
+        {% endif %}
+        {% if product.registNum %}
+          | Số đăng ký: {{ product.registNum }}
+        {% endif %}
+      </div>
+
+      <!-- Price -->
+      <div class="price-box">
+        <span class="price">
+          {% if product.price %}
+            {{ "{:,.0f}".format(product.price) }}đ
+          {% else %}
+            Liên hệ
+          {% endif %}
+        </span>
+        <span class="unit">/ {{ product.unit or 'Hộp' }}</span>
+        {% if product.specs %}
+          <span class="specs">📦 {{ product.specs }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Add to Cart Button -->
+      {% if not product.is_prescription %}
+      <div style="margin-bottom: 24px;">
+        <button onclick="addToCart('{{ product.slug }}', '{{ product.name | replace("'", "\\'") }}', {{ product.price or 0 }}, '{{ product.brand | replace("'", "\\'") }}')" style="width: 100%; max-width: 300px; padding: 14px 24px; border-radius: 12px; border: none; background: linear-gradient(135deg, #12b76a, #027a48); color: white; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(18, 183, 106, 0.2); transition: all 0.2s;">
+          <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;">
+            <path d="M3 3h2l.4 2M5.4 5h15.2l-1.5 9H6.5L4.8 5zM9 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm11 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Chọn mua (Thêm vào giỏ)
+        </button>
+      </div>
+      {% else %}
+      <div style="margin-bottom: 24px;">
+        <button onclick="startPharmacistChat()" style="width: 100%; max-width: 300px; padding: 14px 24px; border-radius: 12px; border: none; background: linear-gradient(135deg, #f04438, #d92d20); color: white; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(240, 68, 56, 0.2); transition: all 0.2s;">
+          ⚕️ Tư vấn mua thuốc kê đơn (Rx)
+        </button>
+      </div>
+      {% endif %}
+
+      <!-- Info Grid -->
+      <div class="info-grid">
+        {% if product.dosageForm %}
+        <div class="info-item">
+          <div class="label">💊 Dạng bào chế</div>
+          <div class="value">{{ product.dosageForm }}</div>
+        </div>
+        {% endif %}
+        {% if product.specification or product.specs %}
+        <div class="info-item">
+          <div class="label">📋 Quy cách</div>
+          <div class="value">{{ product.specification or product.specs }}</div>
+        </div>
+        {% endif %}
+        {% if product.producer %}
+        <div class="info-item">
+          <div class="label">🏭 Nhà sản xuất</div>
+          <div class="value">{{ product.producer }}</div>
+        </div>
+        {% endif %}
+        {% if product.objectUse %}
+        <div class="info-item">
+          <div class="label">👤 Đối tượng</div>
+          <div class="value">{{ product.objectUse }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Ingredients -->
+    {% if product.ingredients %}
+    <div class="info-section" style="margin-top:16px;">
+      <div class="section-title"><span class="icon">🧪</span> Thành phần hoạt chất</div>
+      <div class="section-content">{{ product.ingredients }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Uses / Indications -->
+    {% if product.uses or product.indications %}
+    <div class="info-section">
+      <div class="section-title"><span class="icon">🎯</span> Công dụng chính</div>
+      <div class="section-content">{{ (product.uses or product.indications) | safe }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Usage / Dosage -->
+    {% if product.usage or product.dosage %}
+    <div class="info-section">
+      <div class="section-title"><span class="icon">📝</span> Cách sử dụng</div>
+      <div class="section-content">{{ (product.usage or product.dosage) | safe }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Contraindication -->
+    {% if product.contraindication %}
+    <div class="info-section">
+      <div class="section-title"><span class="icon">🚫</span> Chống chỉ định</div>
+      <div class="section-content">{{ product.contraindication | safe }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Adverse Effects -->
+    {% if product.adverseEffect %}
+    <div class="info-section">
+      <div class="section-title"><span class="icon">⚡</span> Tác dụng phụ</div>
+      <div class="section-content">{{ product.adverseEffect | safe }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Warning -->
+    {% if product.warning or product.warnings %}
+    <div class="warning-box">
+      <div class="section-title"><span class="icon">⚠️</span> Cảnh báo & Lưu ý</div>
+      <div class="section-content">{{ (product.warning or product.warnings) | safe }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Description HTML -->
+    {% if product.description %}
+    <div class="description-section">
+      <h3>📖 Mô tả chi tiết sản phẩm</h3>
+      <div class="description-html">{{ product.description | safe }}</div>
+    </div>
+    {% endif %}
+
+    {% if product.shortDescription and not product.description %}
+    <div class="description-section">
+      <h3>📖 Mô tả sản phẩm</h3>
+      <div class="description-html">{{ product.shortDescription | safe }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Content blocks removed - product info already shown in structured sections above -->
+  </div>
+
+  <!-- RIGHT: AI Chat Panel -->
+  <div class="ai-panel">
+    <div class="ai-card">
+      <div class="ai-card-header">
+        <h3>🤖 Trợ lý AI NEO</h3>
+        <p>Hỏi bất cứ điều gì về sản phẩm này</p>
+      </div>
+      <div class="ai-chat-body" id="aiChatBody">
+        <div class="ai-msg bot">
+          Xin chào! Tôi là <strong>NEO</strong> - Trợ lý AI của Long Châu. 🌟<br><br>
+          Bạn đang xem <strong>{{ product.name or 'sản phẩm' }}</strong>. Tôi có thể giúp bạn:<br>
+          • Giải thích công dụng & thành phần<br>
+          • Hướng dẫn cách sử dụng<br>
+          • So sánh với sản phẩm tương tự<br><br>
+          Hãy hỏi tôi nhé! 😊
+        </div>
+      </div>
+      <div class="ai-suggestions" id="aiSuggestions">
+        <button onclick="askAI('Sản phẩm này dùng như thế nào?')">📝 Cách dùng</button>
+        <button onclick="askAI('Thành phần của sản phẩm này có gì nổi bật?')">🧪 Thành phần</button>
+        <button onclick="askAI('Ai nên dùng sản phẩm này?')">👤 Đối tượng</button>
+        <button onclick="askAI('Có sản phẩm nào tương tự không?')">🔄 Tương tự</button>
+        <button onclick="askAI('Sản phẩm này có tác dụng phụ không?')">⚡ Tác dụng phụ</button>
+      </div>
+      <div class="ai-input-area">
+        <input type="text" id="aiInput" placeholder="Hỏi về sản phẩm này..." onkeydown="if(event.key==='Enter')sendAI()"/>
+        <button id="aiSendBtn" onclick="sendAI()">Gửi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 Nhà thuốc FPT Long Châu - Prototype AI Chatbot | <a href="/">Về trang chủ</a>
+</div>
+
+<script>
+  // Product data for AI context
+  const PRODUCT_DATA = {{ product | tojson | safe }};
+
+  // Simple markdown parser
+  function parseMd(text) {
+    if (!text) return '';
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/^### (.+)$/gm, '<h4 style="margin:6px 0 4px;font-size:14px;">$1</h4>')
+      .replace(/^## (.+)$/gm, '<h3 style="margin:8px 0 4px;font-size:15px;">$1</h3>')
+      .replace(/^# (.+)$/gm, '<h2 style="margin:8px 0 4px;font-size:16px;">$1</h2>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/gs, '<ul style="padding-left:16px;margin:4px 0;">$1</ul>')
+      .replace(/\n/g, '<br>');
+  }
+
+  // --- SHOPPING CART SYSTEM ---
+  function getCart() {
+    try {
+      return JSON.parse(localStorage.getItem('lc_cart') || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem('lc_cart', JSON.stringify(cart));
+    updateCartBadge();
+  }
+
+  function addToCart(slug, name, price, brand) {
+    let cart = getCart();
+    let item = cart.find(i => i.slug === slug);
+    if (item) {
+      item.quantity += 1;
+    } else {
+      cart.push({ slug, name, price, brand, quantity: 1 });
+    }
+    saveCart(cart);
+    showToast(`Đã thêm vào giỏ hàng:<br><strong>${name}</strong>`);
+  }
+
+  function updateCartBadge() {
+    const cart = getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    // Update badge on product detail page
+    const detailBadge = document.getElementById('cart-badge-count');
+    if (detailBadge) {
+      detailBadge.innerText = totalItems;
+      detailBadge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+    }
+  }
+
+  function showToast(message) {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'toast-container';
+      container.style.cssText = "position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px;";
+      document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.style.cssText = "background: white; border-left: 4px solid #12b76a; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 12px 16px; border-radius: 8px; font-size: 13px; color: #20283d; min-width: 250px; max-width: 320px; transform: translateX(120%); transition: transform 0.3s ease; display: flex; justify-content: space-between; align-items: center;";
+    
+    const content = document.createElement('div');
+    content.innerHTML = message;
+    toast.appendChild(content);
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.innerText = '✕';
+    closeBtn.style.cssText = "background: none; border: none; font-size: 14px; color: #657384; cursor: pointer; margin-left: 12px; font-weight: bold;";
+    closeBtn.onclick = () => toast.remove();
+    toast.appendChild(closeBtn);
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.style.transform = 'translateX(0)';
+    }, 50);
+    
+    setTimeout(() => {
+      toast.style.transform = 'translateX(120%)';
+      setTimeout(() => toast.remove(), 300);
+    }, 3500);
+  }
+
+  document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+  function addMessage(text, type, products = null) {
+    const body = document.getElementById('aiChatBody');
+    const msg = document.createElement('div');
+    msg.className = 'ai-msg ' + type;
+    if (type === 'bot' || type === 'blocked') {
+      msg.innerHTML = parseMd(text);
+      
+      // Render product cards inside the bot response
+      if (products && products.length > 0) {
+        let productHtml = `<div class="chat-products-grid" style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">`;
+        products.forEach(p => {
+          const formattedPrice = p.price ? p.price.toLocaleString() + 'đ' : 'Liên hệ';
+          let imgUrl = '/estore-images/categories/duoc-my-pham.png';
+          if (p.slug.includes('thuc-pham-chuc-nang/')) {
+              imgUrl = '/estore-images/categories/thuc-pham-chuc-nang.png';
+          } else if (p.slug.includes('thuoc/')) {
+              imgUrl = '/estore-images/categories/thuoc.png';
+          }
+          
+          productHtml += `
+            <div class="chat-product-card" style="display: flex; align-items: center; gap: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; font-family: 'Inter', sans-serif;">
+              <img src="${imgUrl}" alt="${p.name}" style="width: 40px; height: 40px; border-radius: 4px; object-fit: cover; flex-shrink: 0;">
+              <div style="flex: 1; min-width: 0; text-align: left;">
+                <div style="font-size: 11px; font-weight: 600; color: #1e293b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${p.name}</div>
+                <div style="font-size: 10px; color: #1250dc; font-weight: bold; margin-top: 2px;">${formattedPrice}</div>
+              </div>
+              <button onclick="addToCart('${p.slug}', '${p.name.replace(/'/g, "\\'")}', ${p.price || 0}, '${p.brand.replace(/'/g, "\\'")}')" style="background: #1250dc; color: white; border: none; border-radius: 6px; padding: 4px 10px; font-size: 10px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;">
+                🛒 Thêm giỏ
+              </button>
+            </div>
+          `;
+        });
+        productHtml += `</div>`;
+        const cardContainer = document.createElement('div');
+        cardContainer.innerHTML = productHtml;
+        msg.appendChild(cardContainer);
+      }
+    } else {
+      msg.textContent = text;
+    }
+    body.appendChild(msg);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function showTyping() {
+    const body = document.getElementById('aiChatBody');
+    const t = document.createElement('div');
+    t.className = 'typing-indicator';
+    t.id = 'typingIndicator';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(t);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function hideTyping() {
+    const t = document.getElementById('typingIndicator');
+    if (t) t.remove();
+  }
+
+  // Chat history for conversation context
+  const chatHistory = [];
+
+  async function askAI(question) {
+    addMessage(question, 'user');
+    chatHistory.push({role: 'user', content: question});
+    showTyping();
+
+    const btn = document.getElementById('aiSendBtn');
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/product-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: question, product: PRODUCT_DATA, history: chatHistory })
+      });
+      const data = await res.json();
+      hideTyping();
+
+      if (data.status === 'blocked') {
+        addMessage(data.message, 'blocked', data.products);
+        chatHistory.push({role: 'model', content: data.message});
+      } else {
+        addMessage(data.message, 'bot', data.products);
+        chatHistory.push({role: 'model', content: data.message});
+      }
+    } catch (err) {
+      hideTyping();
+      addMessage('Xin lỗi, đã xảy ra lỗi kết nối. Vui lòng thử lại sau.', 'bot');
+    }
+
+    btn.disabled = false;
+  }
+
+  function sendAI() {
+    const input = document.getElementById('aiInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    askAI(text);
+  }
+</script>
+</body>
+</html>

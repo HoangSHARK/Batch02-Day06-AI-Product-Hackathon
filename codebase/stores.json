@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Nhà thuốc FPT Long Châu 12 Cầu Giấy",
+    "address": "Số 12 Cầu Giấy, Phường Quan Hoa, Quận Cầu Giấy, Hà Nội",
+    "district": "Cầu Giấy",
+    "city": "Hà Nội",
+    "hours": "Mở cửa 24/7",
+    "phone": "1800 6928 (nhánh 101)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 136 Xuân Thủy",
+    "address": "Số 136 Xuân Thủy, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội",
+    "district": "Cầu Giấy",
+    "city": "Hà Nội",
+    "hours": "06:00 - 23:30",
+    "phone": "1800 6928 (nhánh 102)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 242 Nguyễn Trãi",
+    "address": "Số 242 Nguyễn Trãi, Phường Trung Văn, Quận Thanh Xuân, Hà Nội",
+    "district": "Thanh Xuân",
+    "city": "Hà Nội",
+    "hours": "06:00 - 23:00",
+    "phone": "1800 6928 (nhánh 103)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 401 Tây Sơn",
+    "address": "Số 401 Tây Sơn, Phường Ngã Tư Sở, Quận Đống Đa, Hà Nội",
+    "district": "Đống Đa",
+    "city": "Hà Nội",
+    "hours": "Mở cửa 24/7",
+    "phone": "1800 6928 (nhánh 104)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 88 Láng Hạ",
+    "address": "Số 88 Láng Hạ, Phường Láng Hạ, Quận Đống Đa, Hà Nội",
+    "district": "Đống Đa",
+    "city": "Hà Nội",
+    "hours": "06:00 - 23:00",
+    "phone": "1800 6928 (nhánh 105)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 15 Trần Đại Nghĩa",
+    "address": "Số 15 Trần Đại Nghĩa, Phường Bách Khoa, Quận Hai Bà Trưng, Hà Nội",
+    "district": "Hai Bà Trưng",
+    "city": "Hà Nội",
+    "hours": "06:00 - 23:30",
+    "phone": "1800 6928 (nhánh 106)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 332 Phố Huế",
+    "address": "Số 332 Phố Huế, Phường Phố Huế, Quận Hai Bà Trưng, Hà Nội",
+    "district": "Hai Bà Trưng",
+    "city": "Hà Nội",
+    "hours": "Mở cửa 24/7",
+    "phone": "1800 6928 (nhánh 107)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 125 Hai Bà Trưng",
+    "address": "Số 125 Hai Bà Trưng, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+    "district": "Quận 1",
+    "city": "TP. Hồ Chí Minh",
+    "hours": "Mở cửa 24/7",
+    "phone": "1800 6928 (nhánh 201)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 42 Trần Hưng Đạo",
+    "address": "Số 42 Trần Hưng Đạo, Phường Phạm Ngũ Lão, Quận 1, TP. Hồ Chí Minh",
+    "district": "Quận 1",
+    "city": "TP. Hồ Chí Minh",
+    "hours": "06:00 - 23:30",
+    "phone": "1800 6928 (nhánh 202)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 307 Nguyễn Đình Chiểu",
+    "address": "Số 307 Nguyễn Đình Chiểu, Phường 5, Quận 3, TP. Hồ Chí Minh",
+    "district": "Quận 3",
+    "city": "TP. Hồ Chí Minh",
+    "hours": "06:00 - 23:00",
+    "phone": "1800 6928 (nhánh 203)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 184 Lê Văn Sỹ",
+    "address": "Số 184 Lê Văn Sỹ, Phường 10, Quận Phú Nhuận, TP. Hồ Chí Minh",
+    "district": "Phú Nhuận",
+    "city": "TP. Hồ Chí Minh",
+    "hours": "06:00 - 23:00",
+    "phone": "1800 6928 (nhánh 204)"
+  },
+  {
+    "name": "Nhà thuốc FPT Long Châu 276 Bạch Đằng",
+    "address": "Số 276 Bạch Đằng, Phường 14, Quận Bình Thạnh, TP. Hồ Chí Minh",
+    "district": "Bình Thạnh",
+    "city": "TP. Hồ Chí Minh",
+    "hours": "Mở cửa 24/7",
+    "phone": "1800 6928 (nhánh 205)"
+  }
+]
