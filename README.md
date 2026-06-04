@@ -1,10 +1,10 @@
 # Batch 02 · Day 06 — AI Product Hackathon
-# Nhóm 5 - HealthCare AI Squad (Lớp C401)
+# Nhóm C5 - HealthCare AI Squad (Lớp E403)
 
 ### Thành viên nhóm:
 1. **Vũ Tuấn Hoàng** (Mã học viên: 2A202600830 - GitHub: @HoangSHARK)
 2. **Võ Huyền Khánh Mây** (Mã học viên: 2A202600858 - GitHub: @khanhmay004)
-3. **Nguyễn Thị Mai Anh** (Mã học viên: *[Cần điền]* - GitHub: @blue)
+3. **Phạm Quang Huy** (Mã học viên: 2A202600586 - GitHub: @quanghuy56xf)
 4. **Cao Văn Hảo** (Mã học viên: 2A202600874 - GitHub: @harozx)
 5. **Vũ Quốc Tấn** (Mã học viên: 2A202600910 - GitHub: @tannv)
 ### Mô tả ngắn sản phẩm:
