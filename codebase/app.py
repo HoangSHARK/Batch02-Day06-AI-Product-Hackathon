@@ -245,16 +245,61 @@ def fetch_live_product(slug):
         print(f"Live fetch error: {e}")
         return None
 
+import hashlib
+
+CACHE_DIR = os.path.join(os.path.dirname(__file__), "static_cache")
+os.makedirs(CACHE_DIR, exist_ok=True)
+
+def get_cached_asset(path):
+    try:
+        h = hashlib.md5(path.encode("utf-8")).hexdigest()
+        cache_path = os.path.join(CACHE_DIR, h)
+        meta_path = cache_path + ".meta"
+        if os.path.exists(cache_path) and os.path.exists(meta_path):
+            with open(meta_path, "r", encoding="utf-8") as f:
+                meta = json.load(f)
+            with open(cache_path, "rb") as f:
+                content = f.read()
+            return content, meta.get("content-type", "application/octet-stream"), meta.get("status", 200)
+    except:
+        pass
+    return None
+
+def save_cached_asset(path, content, content_type, status):
+    if status != 200 or not content:
+        return
+    try:
+        h = hashlib.md5(path.encode("utf-8")).hexdigest()
+        cache_path = os.path.join(CACHE_DIR, h)
+        meta_path = cache_path + ".meta"
+        with open(cache_path, "wb") as f:
+            f.write(content)
+        with open(meta_path, "w", encoding="utf-8") as f:
+            json.dump({"content-type": content_type, "status": status}, f)
+    except Exception as e:
+        print(f"Error saving asset cache: {e}")
+
+
 # ============================================================
 # PROXY ROUTES (forward CSS/JS/assets from Long Chau)
 # ============================================================
 def _proxy(path, method="GET"):
+    if method == "GET":
+        cached = get_cached_asset(path)
+        if cached:
+            content, ct, status = cached
+            resp = Response(content, status=status, content_type=ct)
+            resp.headers["Access-Control-Allow-Origin"] = "*"
+            resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+            resp.headers["X-Cache"] = "HIT"
+            return resp
+
     try:
         url = f"{LONGCHAU_BASE}/{path}"
         if method == "POST":
-            r = httpx.post(url, headers=PROXY_HEADERS, timeout=10, follow_redirects=True)
+            r = httpx.post(url, headers=PROXY_HEADERS, timeout=15, follow_redirects=True)
         else:
-            r = httpx.get(url, headers=PROXY_HEADERS, timeout=10, follow_redirects=True)
+            r = httpx.get(url, headers=PROXY_HEADERS, timeout=20, follow_redirects=True)
         ct = r.headers.get("content-type", "application/octet-stream")
         content = r.content
 
@@ -267,12 +312,17 @@ def _proxy(path, method="GET"):
             text = text.replace("http://nhathuoclongchau.com.vn", "")
             content = text.encode("utf-8")
 
+        if method == "GET" and r.status_code == 200:
+            save_cached_asset(path, content, ct, r.status_code)
+
         resp = Response(content, status=r.status_code, content_type=ct)
         # Add CORS headers to all proxy responses
         resp.headers["Access-Control-Allow-Origin"] = "*"
         resp.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        resp.headers["X-Cache"] = "MISS"
         return resp
-    except:
+    except Exception as e:
+        print(f"Proxy error for {path}: {e}")
         return Response("", status=502)
 
 @app.route("/_next/<path:p>")
