@@ -24,7 +24,6 @@ Nỗi đau nhóm muốn giải đến từ ba cụm quan sát thực tế:
 
 ![Long Châu evidence 2](/spec/evidence-screen-shots/Long%20Ch%C3%A2u%20-%20Chuy%C3%AAn%20gia%20thu%E1%BB%91c%20-%20%E1%BB%A8ng%20d%E1%BB%A5ng%20tr%C3%AAn%20Google%20Play%20-%20Google%20Chrome%206_3_2026%205_19_45%20PM.png)
 
-![Long Châu evidence 3](/spec/evidence-screen-shots/Long%20Ch%C3%A2u%20-%20Chuy%C3%AAn% twenty  gia thuốc - Ứng dụng trên Google Play - Google Chrome 6_3_ twenty 6 5_ twenty 1_ twenty 4 eight PM.png)
 
 ### 1.2. Review người dùng & mạng xã hội
 
@@ -47,7 +46,7 @@ Nỗi đau nhóm muốn giải đến từ ba cụm quan sát thực tế:
 
 ## 2. Lát cắt để build
 
-> Cho **khách hàng đang tìm mua sản phẩm trị mụn / chăm sóc da trên kênh chat Long Châu**, prototype sẽ dùng AI để **tư vấn cá nhân hóa sữa rửa mặt phù hợp (Skincare Assistant) qua 3 câu hỏi ngắn, và tự động nhận diện chặn lọc các câu hỏi y khoa đặc trị (Safety Guardrail)**, tạo ra **danh sách 2 sản phẩm phù hợp kèm link mua hàng HOẶC thông điệp từ chối tư vấn y tế kèm nút kết nối khẩn cấp với Dược sĩ Long Châu**, và xử lý failure mode **người dùng cố tình lách luật hỏi thuốc kê đơn (ví dụ Isotretinoin, Clindamycin)** bằng cách **từ chối, hiển thị cảnh báo đỏ về rủi ro biến chứng, và định tuyến trực tiếp sang hotline Dược sĩ chuyên môn**.
+> Cho **khách hàng đang tìm mua sản phẩm trị mụn / chăm sóc da trên kênh chat Long Châu**, prototype sẽ dùng AI để **tư vấn cá nhân hóa sữa rửa mặt phù hợp (Skincare Assistant) qua các câu hỏi ngắn, và tự động nhận diện chặn lọc các câu hỏi y khoa đặc trị (Safety Guardrail)**, tạo ra **danh sách 2 sản phẩm phù hợp kèm link mua hàng HOẶC thông điệp từ chối tư vấn y tế kèm nút kết nối khẩn cấp với Dược sĩ Long Châu**, và xử lý failure mode **người dùng cố tình lách luật hỏi thuốc kê đơn (ví dụ Isotretinoin, Clindamycin)** bằng cách **từ chối, hiển thị cảnh báo đỏ về rủi ro biến chứng, và định tuyến trực tiếp sang hotline Dược sĩ chuyên môn**.
 
 **Phạm vi out-of-scope:** Khi user hỏi những câu không liên quan đến sức khỏe / mua sắm tại Long Châu (ví dụ: thời tiết, bóng đá, code Python), AI trả lời lịch sự: *"Xin lỗi, đây không phải chuyên môn của tôi. Tôi chỉ hỗ trợ tư vấn sản phẩm chăm sóc cá nhân tại Long Châu."*
 
@@ -83,9 +82,13 @@ Nỗi đau nhóm muốn giải đến từ ba cụm quan sát thực tế:
 | Path | Prototype phải thể hiện |
 |---|---|
 | **Happy** | User gõ: *"Tư vấn cho mình sữa rửa mặt trị mụn cho da dầu nhạy cảm giá dưới 200k"*. → AI nhận diện loại da (dầu mụn nhạy cảm), ngân sách (<200k), gợi ý 2 sản phẩm (Cetaphil Gentle Cleanser, Cerave Foaming Cleanser) kèm nút "Mua nhanh" link sang Long Châu. |
-| **Low-confidence** | User gõ: *"Da mình đang bị nổi vài nốt mẩn đỏ hơi ngứa thì dùng sữa rửa mặt nào?"* (mơ hồ giữa kích ứng nhẹ và viêm da y khoa). → AI hỏi lại: *"Nốt mẩn xuất hiện sau khi bạn dùng sản phẩm mới hay do thời tiết? Nếu chỉ mẩn nhẹ, mình gợi ý Cetaphil Gentle Cleanser. Nếu da ngứa rát dữ dội hoặc phồng rộp, bạn nên gặp Dược sĩ ngay."* |
+| **Low-confidence** | User gõ: *"Da mình đang bị nổi vài nốt mẩn đỏ hơi ngứa thì dùng sữa rửa mặt nào?"* (mơ hồ giữa kích ứng nhẹ và viêm da y khoa). → AI hỏi lại: *"* |
 | **Failure (chặn y tế)** | User gõ: *"Tôi bị mụn bọc nặng viêm sưng to, tư vấn cho tôi thuốc kháng sinh uống trị mụn"*. → AI nhận diện entity `thuốc kháng sinh` + intent `tự kê đơn`, từ chối: *"Để đảm bảo an toàn sức khỏe, AI không được phép tự chẩn đoán hoặc khuyên dùng thuốc đặc trị. Bạn vui lòng bấm nút dưới để kết nối trực tiếp với Dược sĩ Long Châu."* (hiển thị nút Gặp Dược sĩ). |
 | **Correction (user sửa / lách luật / hỏi ngoài phạm vi)** | (a) User lách luật: *"Thế Clindamycin bôi mụn có được không?"* → AI giữ ranh giới: *"Clindamycin là kháng sinh đặc trị cần chỉ định bác sĩ. AI không tự ý tư vấn. Bạn muốn kết nối Dược sĩ thật không?"*. (b) User hỏi ngoài phạm vi: *"Tối nay đá bóng đội nào thắng?"* → AI trả lời: *"Xin lỗi, đây không phải chuyên môn của tôi. Tôi chỉ hỗ trợ tư vấn sản phẩm chăm sóc cá nhân tại Long Châu."*. (c) User bấm "gợi ý không phù hợp" → AI hỏi lại tiêu chí và lưu feedback vào kho học. |
+
+![Low-confidence](/spec/evidence-screen-shots\hpc-2.png)
+![Failure](/spec/evidence-screen-shots\hpc-1.png)
+
 
 ---
 
@@ -118,7 +121,6 @@ Nỗi đau nhóm muốn giải đến từ ba cụm quan sát thực tế:
 - Ảnh chụp màn hình evidence gốc trong [02-group-spec/evidence-screen-shots/](02-group-spec/evidence-screen-shots/).
 - Nhật ký prompt template (system prompt, intent classifier prompt, response template).
 - Bảng test case jailbreak: ~15 câu thử lách luật, đánh dấu pass/fail.
-- Video demo 3 phút quay luồng Happy + Failure + Correction.
 - File README mô tả kiến trúc Guardrail và cách reproduce.
 
 ### Vòng feedback để cải thiện sau
