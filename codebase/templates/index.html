@@ -650,116 +650,153 @@
   }
 </style>
 
-<!-- Floating Chatbot Launcher -->
-<div id="chatbot-launcher" onclick="toggleChat()">
-  <div id="chatbot-badge">1</div>
-  <svg viewBox="0 0 24 24">
-    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
-    <circle cx="8" cy="10" r="2"/>
-    <circle cx="12" cy="10" r="2"/>
-    <circle cx="16" cy="10" r="2"/>
-  </svg>
-</div>
-
-<!-- Chat Window -->
-<div id="chat-window">
-  <div class="chat-header">
-    <div class="chat-header-info">
-      <div class="chat-avatar">LC</div>
-      <div class="chat-title-container">
-        <span class="chat-title">Trợ lý ảo NEO</span>
-        <span class="chat-status">Đang trực tuyến</span>
-      </div>
-    </div>
-    <button class="chat-close" onclick="toggleChat()">&times;</button>
-  </div>
-  
-  <div class="chat-messages" id="chat-messages-container">
-    <div class="msg-bubble msg-bot">
-      Chào bạn, tôi là **NEO** - Trợ lý ảo của Hệ thống Nhà thuốc FPT Long Châu! 🌟<br><br>
-      Tôi có thể hỗ trợ bạn tìm kiếm sản phẩm chăm sóc cá nhân (Skincare, Dược mỹ phẩm, Vitamin), tra cứu vị trí cửa hàng gần nhất hoặc trả lời các thông tin về chính sách tích điểm, đổi trả hàng hóa.<br><br>
-      *Bạn muốn NEO giúp gì hôm nay?*
-    </div>
-  </div>
-
-  <div class="quick-replies">
-    <button class="quick-chip" onclick="sendQuickReply('Tư vấn sữa rửa mặt trị mụn cho da dầu')">Tư vấn Skincare</button>
-  </div>
-
-  <div class="chat-input-container">
-    <textarea class="chat-input" id="chat-message-input" placeholder="Nhập câu hỏi..." rows="1" onkeydown="handleChatKey(event)"></textarea>
-    <button class="chat-send-btn" onclick="sendMessage()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="22" y1="2" x2="11" y2="13"></line>
-        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-      </svg>
-    </button>
-  </div>
-</div>
-
-<!-- Product Detail Modal -->
-<div class="lc-modal-overlay" id="product-modal" onclick="closeProductModal(event)">
-  <div class="lc-modal-content">
-    <button class="lc-modal-close" onclick="closeProductModal(null)">&times;</button>
-    <div class="product-badge-prescription" id="modal-badge-prescription">THUỐC KÊ ĐƠN (Rx)</div>
-    <div class="product-badge-normal" id="modal-badge-normal">CHĂM SÓC SỨC KHỎE</div>
-    <h2 class="product-title" id="modal-title">Tên sản phẩm</h2>
-    <div class="product-brand" id="modal-brand">Thương hiệu: FPT</div>
-    
-    <div class="product-detail-layout">
-      <div class="product-image-container">
-        <img id="modal-img" src="" alt="Product Image">
-      </div>
-      <div class="product-info-container">
-        <div class="product-price" id="modal-price">0đ <span>/ Hộp</span></div>
-        
-        <div class="product-sections">
-          <div>
-            <div class="product-sec-title">🔬 Thành phần hoạt chất</div>
-            <div class="product-sec-content" id="modal-ingredients">Chưa có thông tin.</div>
-          </div>
-          <div>
-            <div class="product-sec-title">🎯 Công dụng chính</div>
-            <div class="product-sec-content" id="modal-uses">Chưa có thông tin.</div>
-          </div>
-          <div>
-            <div class="product-sec-title">📝 Cách sử dụng</div>
-            <div class="product-sec-content" id="modal-usage">Chưa có thông tin.</div>
-          </div>
-          <div>
-            <div class="product-sec-title">⚠️ Cảnh báo & Lưu ý</div>
-            <div class="product-sec-content" id="modal-warnings" style="color: #ef4444; font-weight: 500;">Chưa có thông tin.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="product-actions">
-      <button class="btn-secondary" onclick="askAICurrentProduct()">💬 Hỏi AI về sản phẩm này</button>
-      <button class="btn-primary" onclick="closeProductModal(null)">Đóng lại</button>
-    </div>
-  </div>
-</div>
-
-<!-- Search Results Modal -->
-<div class="lc-modal-overlay" id="search-modal" onclick="closeSearchModal(event)">
-  <div class="lc-modal-content search-container">
-    <button class="lc-modal-close" onclick="closeSearchModal(null)">&times;</button>
-    <div class="search-header">
-      <h3>Kết quả tìm kiếm sản phẩm</h3>
-    </div>
-    <div class="search-input-box">
-      <input type="text" id="search-input-modal" placeholder="Nhập từ khóa tìm kiếm thuốc, skincare..." onkeydown="handleSearchKey(event)">
-      <button class="btn-primary" style="flex: 0 0 100px;" onclick="executeModalSearch()">Tìm</button>
-    </div>
-    <div style="margin: 15px 0 10px 0; color: #6b7280; font-size: 14px;" id="search-count">Tìm thấy 0 sản phẩm</div>
-    <div class="search-results-grid" id="search-results-grid">
-      <!-- Results populated by JS -->
-    </div>
-  </div>
-</div>
+<!-- NEO Chatbot and Modals are dynamically injected by Javascript to prevent React Hydration mismatch -->
 
 <script>
+  // Dynamically inject chatbot and modals to body after DOM is loaded to completely prevent Next.js React hydration mismatch
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      // Check if container already exists (avoid double insertion just in case)
+      if (document.getElementById('neo-injected-widgets')) return;
+      
+      const container = document.createElement('div');
+      container.id = 'neo-injected-widgets';
+      container.innerHTML = `
+        <!-- Floating Chatbot Launcher -->
+        <div id="chatbot-launcher" onclick="toggleChat()">
+          <div id="chatbot-badge">1</div>
+          <svg viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+            <circle cx="8" cy="10" r="2"/>
+            <circle cx="12" cy="10" r="2"/>
+            <circle cx="16" cy="10" r="2"/>
+          </svg>
+        </div>
+
+        <!-- Chat Window -->
+        <div id="chat-window">
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <div class="chat-avatar">LC</div>
+              <div class="chat-title-container">
+                <span class="chat-title">Trợ lý ảo NEO</span>
+                <span class="chat-status">Đang trực tuyến</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+              <button class="chat-reset-btn" onclick="resetChat()" title="Kết thúc và làm mới trò chuyện" style="background: rgba(255,255,255,0.15); border: none; border-radius: 6px; color: white; padding: 4px 8px; font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; font-family: 'Inter', sans-serif;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+                Làm mới
+              </button>
+              <button class="chat-close" onclick="toggleChat()">&times;</button>
+            </div>
+          </div>
+          
+          <div class="chat-messages" id="chat-messages-container">
+            <div class="msg-bubble msg-bot">
+              Chào bạn, tôi là <strong>NEO</strong> - Trợ lý ảo của Hệ thống Nhà thuốc FPT Long Châu! 🌟<br><br>
+              Tôi có thể hỗ trợ bạn tìm kiếm sản phẩm chăm sóc cá nhân (Skincare, Dược mỹ phẩm, Vitamin), tra cứu vị trí cửa hàng gần nhất hoặc trả lời các thông tin về chính sách tích điểm, đổi trả hàng hóa.<br><br>
+              <em>Bạn muốn NEO giúp gì hôm nay?</em>
+            </div>
+          </div>
+
+          <div class="quick-replies">
+            <button class="quick-chip" onclick="sendQuickReply('Tư vấn sữa rửa mặt trị mụn cho da dầu')">Tư vấn Skincare</button>
+            <button class="quick-chip pharmacist-chip" onclick="startPharmacistChat()" style="background: #fef3f2; border: 1px solid #fee4e2; color: #b42318; font-weight: 500;" onmouseover="this.style.background='#fee4e2'" onmouseout="this.style.background='#fef3f2'">📞 Liên hệ Dược sĩ</button>
+          </div>
+
+          <div class="chat-input-container">
+            <textarea class="chat-input" id="chat-message-input" placeholder="Nhập câu hỏi..." rows="1" onkeydown="handleChatKey(event)"></textarea>
+            <button class="chat-send-btn" onclick="sendMessage()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Detail Modal -->
+        <div class="lc-modal-overlay" id="product-modal" onclick="closeProductModal(event)">
+          <div class="lc-modal-content">
+            <button class="lc-modal-close" onclick="closeProductModal(null)">&times;</button>
+            <div class="product-badge-prescription" id="modal-badge-prescription">THUỐC KÊ ĐƠN (Rx)</div>
+            <div class="product-badge-normal" id="modal-badge-normal">CHĂM SÓC SỨC KHỎE</div>
+            <h2 class="product-title" id="modal-title">Tên sản phẩm</h2>
+            <div class="product-brand" id="modal-brand">Thương hiệu: FPT</div>
+            
+            <div class="product-detail-layout">
+              <div class="product-image-container">
+                <img id="modal-img" src="" alt="Product Image">
+              </div>
+              <div class="product-info-container">
+                <div class="product-price" id="modal-price">0đ <span>/ Hộp</span></div>
+                
+                <div class="product-sections">
+                  <div>
+                    <div class="product-sec-title">🔬 Thành phần hoạt chất</div>
+                    <div class="product-sec-content" id="modal-ingredients">Chưa có thông tin.</div>
+                  </div>
+                  <div>
+                    <div class="product-sec-title">🎯 Công dụng chính</div>
+                    <div class="product-sec-content" id="modal-uses">Chưa có thông tin.</div>
+                  </div>
+                  <div>
+                    <div class="product-sec-title">📝 Cách sử dụng</div>
+                    <div class="product-sec-content" id="modal-usage">Chưa có thông tin.</div>
+                  </div>
+                  <div>
+                    <div class="product-sec-title">⚠️ Cảnh báo & Lưu ý</div>
+                    <div class="product-sec-content" id="modal-warnings" style="color: #ef4444; font-weight: 500;">Chưa có thông tin.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="product-actions">
+              <button class="btn-secondary" onclick="askAICurrentProduct()">💬 Hỏi AI về sản phẩm này</button>
+              <button class="btn-primary" onclick="closeProductModal(null)">Đóng lại</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Results Modal -->
+        <div class="lc-modal-overlay" id="search-modal" onclick="closeSearchModal(event)">
+          <div class="lc-modal-content search-container">
+            <button class="lc-modal-close" onclick="closeSearchModal(null)">&times;</button>
+            <div class="search-header">
+              <h3>Kết quả tìm kiếm sản phẩm</h3>
+            </div>
+            <div class="search-input-box">
+              <input type="text" id="search-input-modal" placeholder="Nhập từ khóa tìm kiếm thuốc, skincare..." onkeydown="handleSearchKey(event)">
+              <button class="btn-primary" style="flex: 0 0 100px;" onclick="executeModalSearch()">Tìm</button>
+            </div>
+            <div style="margin: 15px 0 10px 0; color: #6b7280; font-size: 14px;" id="search-count">Tìm thấy 0 sản phẩm</div>
+            <div class="search-results-grid" id="search-results-grid">
+              <!-- Results populated by JS -->
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(container);
+      
+      // Update badge giỏ hàng
+      updateCartBadge();
+      
+      // Re-register search inputs interceptors since the modals are now present
+      const originalSearchInputs = document.querySelectorAll('input[placeholder*="Tìm"], input[placeholder*="tìm"], input[type="search"]');
+      originalSearchInputs.forEach(input => {
+        input.addEventListener('focus', (e) => {
+          e.preventDefault();
+          input.blur();
+          showSearchModal();
+        });
+      });
+    }, 1200); // 1.2s delay is safe to wait for Next.js to fully complete hydration
+  });
+
   // --- CHAT & INTERACTION LOGIC ---
   let isChatOpen = false;
   let chatHistory = [];
@@ -769,16 +806,56 @@
   function toggleChat() {
     const chatWin = document.getElementById('chat-window');
     const badge = document.getElementById('chatbot-badge');
+    if (!chatWin || !badge) return; // Safety check if elements are not injected yet
     isChatOpen = !isChatOpen;
     
     if (isChatOpen) {
       chatWin.classList.add('active');
       badge.style.display = 'none'; // Clear notification badge
       // Focus input
-      setTimeout(() => document.getElementById('chat-message-input').focus(), 300);
+      setTimeout(() => {
+        const input = document.getElementById('chat-message-input');
+        if (input) input.focus();
+      }, 300);
     } else {
       chatWin.classList.remove('active');
     }
+  }
+
+  // End chatbot session and reset conversation
+  function resetChat() {
+    chatHistory = [];
+    
+    const messagesContainer = document.getElementById('chat-messages-container');
+    if (messagesContainer) {
+      messagesContainer.innerHTML = `
+        <div class="msg-bubble msg-bot">
+          Chào bạn, tôi là <strong>NEO</strong> - Trợ lý ảo của Hệ thống Nhà thuốc FPT Long Châu! 🌟<br><br>
+          Tôi có thể hỗ trợ bạn tìm kiếm sản phẩm chăm sóc cá nhân (Skincare, Dược mỹ phẩm, Vitamin), tra cứu vị trí cửa hàng gần nhất hoặc trả lời các thông tin về chính sách tích điểm, đổi trả hàng hóa.<br><br>
+          <em>Bạn muốn NEO giúp gì hôm nay?</em>
+        </div>
+      `;
+    }
+    
+    // Restore header details if changed by pharmacist handover
+    const titleEl = document.querySelector('.chat-title');
+    const statusEl = document.querySelector('.chat-status');
+    const avatarEl = document.querySelector('.chat-avatar');
+    
+    if (titleEl) titleEl.innerText = "Trợ lý ảo NEO";
+    if (statusEl) {
+      statusEl.innerText = "Đang trực tuyến";
+      statusEl.style.color = "";
+    }
+    if (avatarEl) {
+      avatarEl.innerText = "LC";
+      avatarEl.style.border = "";
+    }
+    
+    const inputEl = document.getElementById('chat-message-input');
+    if (inputEl) inputEl.value = '';
+    
+    showToast("Đã bắt đầu phiên trò chuyện mới!");
   }
 
   // Handle enter key in chat
@@ -798,9 +875,14 @@
   function formatMarkdown(text) {
     if (!text) return "";
     let formatted = text
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\`\`(.*?)\`\`/g, '<code>$1</code>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/^### (.+)$/gm, '<h4 style="margin:6px 0 4px;font-size:14px;">$1</h4>')
+      .replace(/^## (.+)$/gm, '<h3 style="margin:8px 0 4px;font-size:15px;">$1</h3>')
+      .replace(/^# (.+)$/gm, '<h2 style="margin:8px 0 4px;font-size:16px;">$1</h2>')
+      .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/gs, '<ul style="padding-left:16px;margin:4px 0;">$1</ul>')
       .replace(/\n/g, '<br>');
     return formatted;
   }
@@ -1090,46 +1172,62 @@
 
   // --- PRODUCT MODAL ---
   function showProductModal(product) {
+    const modal = document.getElementById('product-modal');
+    if (!modal) return; // Safety check
     currentProductInModal = product;
     
-    document.getElementById('modal-title').innerText = product.name;
-    document.getElementById('modal-brand').innerText = `Thương hiệu: ${product.brand} | Danh mục: ${product.category}`;
+    const titleEl = document.getElementById('modal-title');
+    const brandEl = document.getElementById('modal-brand');
+    const priceEl = document.getElementById('modal-price');
+    const ingEl = document.getElementById('modal-ingredients');
+    const usesEl = document.getElementById('modal-uses');
+    const usageEl = document.getElementById('modal-usage');
+    const warnEl = document.getElementById('modal-warnings');
+    
+    if (titleEl) titleEl.innerText = product.name;
+    if (brandEl) brandEl.innerText = `Thương hiệu: ${product.brand} | Danh mục: ${product.category}`;
     
     const formattedPrice = product.price ? product.price.toLocaleString() + 'đ' : 'Liên hệ';
-    document.getElementById('modal-price').innerHTML = `${formattedPrice} <span>/ ${product.unit}</span>`;
+    if (priceEl) priceEl.innerHTML = `${formattedPrice} <span>/ ${product.unit}</span>`;
     
-    document.getElementById('modal-ingredients').innerText = product.ingredients || 'Đang cập nhật...';
-    document.getElementById('modal-uses').innerText = product.uses || 'Sản phẩm bổ sung hỗ trợ chăm sóc sức khỏe.';
-    document.getElementById('modal-usage').innerText = product.usage || 'Sử dụng theo hướng dẫn ghi trên bao bì.';
-    document.getElementById('modal-warnings').innerText = product.warnings || 'Đọc kỹ hướng dẫn sử dụng trước khi dùng.';
+    if (ingEl) ingEl.innerText = product.ingredients || 'Đang cập nhật...';
+    if (usesEl) usesEl.innerText = product.uses || 'Sản phẩm bổ sung hỗ trợ chăm sóc sức khỏe.';
+    if (usageEl) usageEl.innerText = product.usage || 'Sử dụng theo hướng dẫn ghi trên bao bì.';
+    if (warnEl) warnEl.innerText = product.warnings || 'Đọc kỹ hướng dẫn sử dụng trước khi dùng.';
     
     // Image fallback
     const imgEl = document.getElementById('modal-img');
-    if (product.slug.includes('thuc-pham-chuc-nang/')) {
-        imgEl.src = '/estore-images/categories/thuc-pham-chuc-nang.png';
-    } else if (product.slug.includes('thuoc/')) {
-        imgEl.src = '/estore-images/categories/thuoc.png';
-    } else {
-        imgEl.src = '/estore-images/categories/duoc-my-pham.png';
+    if (imgEl) {
+      if (product.slug.includes('thuc-pham-chuc-nang/')) {
+          imgEl.src = '/estore-images/categories/thuc-pham-chuc-nang.png';
+      } else if (product.slug.includes('thuoc/')) {
+          imgEl.src = '/estore-images/categories/thuoc.png';
+      } else {
+          imgEl.src = '/estore-images/categories/duoc-my-pham.png';
+      }
     }
     
     // Prescription Badges
     const badgeRx = document.getElementById('modal-badge-prescription');
     const badgeNormal = document.getElementById('modal-badge-normal');
-    if (product.is_prescription) {
-      badgeRx.style.display = 'inline-block';
-      badgeNormal.style.display = 'none';
-    } else {
-      badgeRx.style.display = 'none';
-      badgeNormal.style.display = 'inline-block';
+    if (badgeRx && badgeNormal) {
+      if (product.is_prescription) {
+        badgeRx.style.display = 'inline-block';
+        badgeNormal.style.display = 'none';
+      } else {
+        badgeRx.style.display = 'none';
+        badgeNormal.style.display = 'inline-block';
+      }
     }
     
-    document.getElementById('product-modal').classList.add('active');
+    modal.classList.add('active');
   }
 
   function closeProductModal(e) {
+    const modal = document.getElementById('product-modal');
+    if (!modal) return;
     if (!e || e.target.id === 'product-modal' || e.target.className === 'lc-modal-close' || e.target.innerText === 'Đóng lại') {
-      document.getElementById('product-modal').classList.remove('active');
+      modal.classList.remove('active');
       currentProductInModal = null;
     }
   }
@@ -1139,7 +1237,8 @@
     if (!currentProductInModal) return;
     
     // Close modal
-    document.getElementById('product-modal').classList.remove('active');
+    const modal = document.getElementById('product-modal');
+    if (modal) modal.classList.remove('active');
     
     // Open chat
     if (!isChatOpen) {
@@ -1153,13 +1252,20 @@
 
   // --- SEARCH MODAL ---
   function showSearchModal() {
-    document.getElementById('search-modal').classList.add('active');
-    setTimeout(() => document.getElementById('search-input-modal').focus(), 300);
+    const modal = document.getElementById('search-modal');
+    if (!modal) return;
+    modal.classList.add('active');
+    setTimeout(() => {
+      const input = document.getElementById('search-input-modal');
+      if (input) input.focus();
+    }, 300);
   }
 
   function closeSearchModal(e) {
+    const modal = document.getElementById('search-modal');
+    if (!modal) return;
     if (!e || e.target.id === 'search-modal' || e.target.className === 'lc-modal-close') {
-      document.getElementById('search-modal').classList.remove('active');
+      modal.classList.remove('active');
     }
   }
 
@@ -1249,6 +1355,12 @@
           }
           // Remove leading slash, clean up
           slug = slug.replace(/^\/+/, '').split('?')[0];
+          
+          // Fix: Remove duplicate 'product/' prefix if it is already there
+          if (slug.startsWith('product/')) {
+            slug = slug.substring(8);
+          }
+          
           // Replace spaces with hyphens (fix encoding issues)
           slug = slug.replace(/ /g, '-');
           

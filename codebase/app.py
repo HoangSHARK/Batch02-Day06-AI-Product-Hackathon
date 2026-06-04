@@ -141,24 +141,53 @@ def format_price(price):
 
 
 def find_products(query, category=None, max_results=5):
-    """Search products by keyword scoring."""
+    """Search products by keyword scoring with synonyms mapping and fallback."""
     q = query.lower()
+    
+    # Synonyms mapping for skincare / general terms
+    search_terms = [q]
+    if any(x in q for x in ["skincare", "dưỡng da", "chăm sóc da", "mỹ phẩm", "làm đẹp"]):
+        search_terms.extend(["sữa rửa mặt", "kem chống nắng", "kem dưỡng", "nước hoa hồng", "toner", "serum", "tẩy trang", "bioderma", "laroche", "cetaphil", "dược mỹ phẩm"])
+    elif "mụn" in q:
+        search_terms.extend(["sữa rửa mặt ngừa mụn", "gel giảm mụn", "la roche-posay effaclar", "hatomugi acne"])
+    elif "chống nắng" in q:
+        search_terms.extend(["kem chống nắng", "la roche-posay anthelios", "vichy", "sunscreen"])
+    elif "sữa rửa mặt" in q:
+        search_terms.extend(["sữa rửa mặt", "cetaphil", "cerave", "hatomugi", "cleanser"])
+    elif "dưỡng ẩm" in q or "cấp ẩm" in q or "khô da" in q:
+        search_terms.extend(["kem dưỡng ẩm", "dưỡng ẩm", "cấp nước", "cream", "moisturizer"])
+
     scored = []
     for p in PRODUCTS:
         if category and p.get("category") != category:
             continue
         score = 0
         name = p.get("name", "").lower()
-        if q in name:          score += 10
-        if q in p.get("brand", "").lower():       score += 5
-        if q in p.get("ingredients", "").lower():  score += 3
-        if q in p.get("uses", "").lower():         score += 2
-        for w in q.split():
-            if len(w) > 2 and w in name:           score += 2
+        brand = p.get("brand", "").lower()
+        cat = p.get("category", "").lower()
+        ingredients = p.get("ingredients", "").lower()
+        uses = p.get("uses", "").lower()
+        
+        for term in search_terms:
+            if term in name:          score += 10
+            if term in brand:         score += 5
+            if term in cat:           score += 8
+            if term in ingredients:   score += 3
+            if term in uses:          score += 4
+            
         if score > 0:
             scored.append((p, score))
+            
     scored.sort(key=lambda x: x[1], reverse=True)
-    return [s[0] for s in scored[:max_results]]
+    results = [s[0] for s in scored[:max_results]]
+    
+    # Fallback: if search results are empty and user is asking about skincare, return popular skincare products
+    if not results and any(x in q for x in ["skincare", "dưỡng da", "chăm sóc da", "mỹ phẩm", "sữa rửa mặt", "kem chống nắng", "mụn"]):
+        # Find any products in "Dược mỹ phẩm"
+        skincare_prods = [p for p in PRODUCTS if p.get("category") == "Dược mỹ phẩm"]
+        results = skincare_prods[:max_results]
+        
+    return results
 
 
 def find_stores(query):
@@ -192,6 +221,17 @@ def check_safety(message):
     return False, ""
 
 
+def _clean_field_value(val):
+    """Clean fields that might contain list of dicts or list of strings from live NextJS data."""
+    if not val:
+        return ""
+    if isinstance(val, list):
+        if all(isinstance(x, dict) for x in val):
+            return ", ".join([x.get("name") or x.get("webName") or str(x) for x in val if isinstance(x, dict)])
+        return ", ".join([str(x) for x in val])
+    return val
+
+
 def fetch_live_product(slug):
     """Fetch full product data from Long Chau via __NEXT_DATA__."""
     try:
@@ -220,23 +260,24 @@ def fetch_live_product(slug):
             "unit": prices[0].get("measureUnitName", "Hộp") if prices else "Hộp",
             "specs": prices[0].get("productSpecs", "") if prices else "",
             "brand": pp["brand"].get("name", "") if isinstance(pp.get("brand"), dict) else str(pp.get("brand", "")),
-            "brandOrigin": pp.get("brandOrigin", ""),
-            "producer": pp.get("producer", ""),
+            "brandOrigin": _clean_field_value(pp.get("brandOrigin", "")),
+            "producer": _clean_field_value(pp.get("producer", "")),
             "categories": [c.get("name", "") for c in pp.get("categories", [])],
             "category": pp["categories"][-1]["name"] if pp.get("categories") else "",
             "ingredients": ", ".join(ing_names[:15]),
-            "shortDescription": pp.get("shortDescription", ""),
-            "description": pp.get("description", ""),
-            "usage": pp.get("usage", ""),
-            "dosage": pp.get("dosage", ""),
-            "indications": pp.get("indications", ""),
-            "contraindication": pp.get("contraindication", ""),
-            "adverseEffect": pp.get("adverseEffect", ""),
-            "warning": pp.get("warning", ""),
-            "specification": pp.get("specification", ""),
-            "dosageForm": pp.get("dosageForm", ""),
+            "shortDescription": _clean_field_value(pp.get("shortDescription", "")),
+            "description": _clean_field_value(pp.get("description", "")),
+            "usage": _clean_field_value(pp.get("usage", "")),
+            "dosage": _clean_field_value(pp.get("dosage", "")),
+            "indications": _clean_field_value(pp.get("indications", "")),
+            "uses": _clean_field_value(pp.get("uses") or pp.get("indications") or ""),
+            "contraindication": _clean_field_value(pp.get("contraindication", "")),
+            "adverseEffect": _clean_field_value(pp.get("adverseEffect", "")),
+            "warning": _clean_field_value(pp.get("warning", "")),
+            "specification": _clean_field_value(pp.get("specification", "")),
+            "dosageForm": _clean_field_value(pp.get("dosageForm", "")),
             "is_prescription": bool(pp.get("prescription")),
-            "objectUse": pp.get("objectUse", ""),
+            "objectUse": _clean_field_value(pp.get("objectUse", "")),
             "registNum": pp.get("registNum", ""),
             "image": pp.get("primaryImage", {}).get("url", ""),
             "content": content,  # full CMS content blocks
@@ -364,6 +405,10 @@ def product_page(slug):
     """Full product detail page with live data + AI chat panel."""
     # Fix spaces in slug
     slug = slug.replace(" ", "-")
+    
+    # Fix duplicate product/ prefix in slug if any (e.g. from historical incorrect redirect or link formatting)
+    if slug.startswith("product/"):
+        slug = slug.replace("product/", "", 1)
     
     # 1. Look in local database PRODUCTS first
     local_prod = None
@@ -587,7 +632,8 @@ def api_chat():
                 "4. Được phép hướng dẫn cách sử dụng và công dụng của các sản phẩm skincare/vitamin/TPCN/tắm gội bé.\n"
                 "5. Đối với sữa công thức / sữa bột cho trẻ em (baby milk/formula): Hệ thống hiện không kinh doanh mặt hàng này trong danh mục. Hãy lịch sự thông báo cho khách hàng và gợi ý các sản phẩm tắm gội chăm sóc bé hiện có trong danh sách (như sữa tắm gội Lactacyd Baby, Cetaphil Baby, Bimunica...). KHÔNG coi đây là câu hỏi y tế phức tạp và KHÔNG thêm thẻ [HANDOVER] cho câu hỏi về sữa công thức.\n"
                 "6. Nếu câu hỏi về sản phẩm thuộc danh mục \"Thuốc\" (Medicines) hoặc câu hỏi y tế lâm sàng phức tạp (bệnh lý, kê đơn) → từ chối lịch sự và thêm thẻ [HANDOVER] vào cuối câu trả lời.\n"
-                "7. Nếu câu hỏi hoàn toàn NGOÀI phạm vi (thời tiết, ca nhạc, tin tức...) → từ chối lịch sự: 'Câu hỏi này nằm ngoài phạm vi tư vấn của NEO. Vui lòng liên hệ Dược sĩ qua hotline 1800 6928 để được hỗ trợ.'\n\n"
+                "7. Nếu câu hỏi hoàn toàn NGOÀI phạm vi (thời tiết, ca nhạc, tin tức...) → từ chối lịch sự: 'Câu hỏi này nằm ngoài phạm vi tư vấn của NEO. Vui lòng liên hệ Dược sĩ qua hotline 1800 6928 để được hỗ trợ.'\n"
+                "8. Đối với các câu hỏi chung chung (ví dụ: 'tư vấn skincare', 'giới thiệu sản phẩm skincare', 'sản phẩm nào tốt cho sức khỏe', 'muốn mua thực phẩm chức năng'...) mà chưa rõ tình trạng cụ thể → KHÔNG gợi ý sản phẩm ngay. Hãy đặt câu hỏi ngược lại một cách thân thiện để hỏi rõ tình trạng da (ví dụ: da bạn thuộc loại nào, khô, dầu, mụn hay nhạy cảm?) hoặc hỏi rõ thể trạng/nhu cầu sức khỏe của khách hàng (ví dụ: cơ thể bạn đang cảm thấy thế nào, hay bạn đang có nhu cầu sức khỏe cụ thể nào không?).\n\n"
                 f"SẢN PHẨM HIỆN CÓ:\n{prod_ctx}\n\nCỬA HÀNG:\n{store_ctx}"
             )
             ai = call_gemini(sys_prompt, message, history)
@@ -607,6 +653,21 @@ def api_chat():
 
     # Local NLU fallback
     msg = message.lower()
+
+    # General skincare / general health counter-questions check
+    general_skin_queries = ["tư vấn skincare", "giới thiệu skincare", "skincare thế nào", "chăm sóc da", "sản phẩm dưỡng da", "tư vấn dưỡng da", "mỹ phẩm tốt"]
+    if any(q in msg for q in general_skin_queries):
+        return jsonify({
+            "status": "success",
+            "message": "Chào bạn! Bạn đang cần tư vấn về sản phẩm chăm sóc da (skincare) đúng không? Để NEO gợi ý các sản phẩm phù hợp nhất, bạn vui lòng cho biết **tình trạng da** hiện tại của mình thế nào nhé (ví dụ: da dầu mụn, da khô hay nhạy cảm)?"
+        })
+
+    general_health_queries = ["tốt cho sức khỏe", "tư vấn sức khỏe", "sản phẩm tốt", "thực phẩm chức năng", "tpcn tốt", "sản phẩm sức khỏe", "vitamin tốt"]
+    if any(q in msg for q in general_health_queries):
+        return jsonify({
+            "status": "success",
+            "message": "Chào bạn! Để NEO gợi ý thực phẩm chức năng hay vitamin phù hợp nhất, bạn vui lòng chia sẻ thêm **cơ thể bạn đang cảm thấy thế nào** hoặc đang có nhu cầu sức khỏe cụ thể nào không nhé (ví dụ: cần tăng đề kháng, bổ sung vitamin, hỗ trợ xương khớp...)?"
+        })
 
     # Store locator
     stores, district = find_stores(message)
@@ -697,5 +758,28 @@ def api_feedback():
 # ============================================================
 if __name__ == "__main__":
     print(f"📦 {len(PRODUCTS)} products | 🏪 {len(STORES)} stores loaded")
+    
+    # Clean up any bad cache lists from database on startup
+    changed = False
+    for p in PRODUCTS:
+        for k in ["brandOrigin", "producer", "shortDescription", "description", "usage", "dosage", "indications", "uses", "contraindication", "adverseEffect", "warning", "specification", "dosageForm", "objectUse"]:
+            val = p.get(k)
+            if val:
+                # If it is a list or looks like a string representation of a list
+                is_list_str = isinstance(val, str) and (val.strip().startswith("[{") or val.strip().startswith("["))
+                if isinstance(val, list) or is_list_str:
+                    if is_list_str:
+                        try:
+                            import ast
+                            val = ast.literal_eval(val)
+                        except:
+                            pass
+                    cleaned = _clean_field_value(val)
+                    if cleaned != p.get(k):
+                        p[k] = cleaned
+                        changed = True
+    if changed:
+        save_products_db()
+        
     app.run(host="0.0.0.0", port=5000, debug=True)
 

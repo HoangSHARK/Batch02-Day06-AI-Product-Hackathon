@@ -5,6 +5,7 @@
 1. **Vũ Tuấn Hoàng** (Mã học viên: *[Cần điền]* - GitHub: @HoangSHARK)
 2. **Võ Huyền Khánh Mây** (Mã học viên: *[Cần điền]* - GitHub: @khanhmay004)
 3. **Nguyễn Thị Mai Anh** (Mã học viên: *[Cần điền]* - GitHub: @blue)
+4. **Cao Văn Hảo** (Mã học viên: 2A202600874 - GitHub: @harozx)
 
 ### Mô tả ngắn sản phẩm:
 **FPT Long Châu AI Chatbot NEO** - Trợ lý ảo tư vấn chăm sóc cá nhân hóa (Skincare, chăm sóc bé, TPCN) tích hợp **Safety Guardrail** chặn y tế thông minh (chặn các thuốc đặc trị Rx, chẩn đoán bệnh) và tự động chuyển đổi sang cuộc trò chuyện của **Dược sĩ chuyên môn** khi phát hiện yêu cầu hạn chế y tế.

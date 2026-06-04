@@ -492,9 +492,17 @@
   <!-- RIGHT: AI Chat Panel -->
   <div class="ai-panel">
     <div class="ai-card">
-      <div class="ai-card-header">
-        <h3>🤖 Trợ lý AI NEO</h3>
-        <p>Hỏi bất cứ điều gì về sản phẩm này</p>
+      <div class="ai-card-header" style="position: relative; display: flex; justify-content: space-between; align-items: center; padding-right: 16px;">
+        <div>
+          <h3 class="ai-title">🤖 Trợ lý AI NEO</h3>
+          <p class="ai-subtitle">Hỏi bất cứ điều gì về sản phẩm này</p>
+        </div>
+        <button onclick="resetAI()" title="Kết thúc và làm mới trò chuyện" style="background: rgba(255,255,255,0.15); border: none; border-radius: 8px; color: white; padding: 6px 10px; font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; font-family: 'Inter', sans-serif;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          Mới
+        </button>
       </div>
       <div class="ai-chat-body" id="aiChatBody">
         <div class="ai-msg bot">
@@ -719,6 +727,73 @@
     if (!text) return;
     input.value = '';
     askAI(text);
+  }
+
+  // End chatbot session on detail page and reset conversation
+  function resetAI() {
+    chatHistory.length = 0; // Clear history array
+    
+    const body = document.getElementById('aiChatBody');
+    if (body) {
+      body.innerHTML = `
+        <div class="ai-msg bot">
+          Xin chào! Tôi là <strong>NEO</strong> - Trợ lý AI của Long Châu. 🌟<br><br>
+          Bạn đang xem <strong>{{ product.name or 'sản phẩm' }}</strong>. Tôi có thể giúp bạn:<br>
+          • Giải thích công dụng & thành phần<br>
+          • Hướng dẫn cách sử dụng<br>
+          • So sánh với sản phẩm tương tự<br><br>
+          Hãy hỏi tôi nhé! 😊
+        </div>
+      `;
+    }
+    
+    // Restore header text if changed by pharmacist handover
+    const titleEl = document.querySelector('.ai-title');
+    const subtitleEl = document.querySelector('.ai-subtitle');
+    
+    if (titleEl) titleEl.innerText = "🤖 Trợ lý AI NEO";
+    if (subtitleEl) subtitleEl.innerText = "Hỏi bất cứ điều gì về sản phẩm này";
+    
+    const input = document.getElementById('aiInput');
+    if (input) input.value = '';
+    
+    showToast("Đã bắt đầu phiên trò chuyện mới!");
+  }
+
+  // Simulated Pharmacist Handover Chat for detail page (for prescription medicines Rx)
+  function startPharmacistChat() {
+    const messagesContainer = document.getElementById('aiChatBody');
+    if (!messagesContainer) return;
+    
+    // Add User request
+    messagesContainer.innerHTML += `
+      <div class="ai-msg user" style="background: var(--green-700);">
+        [Yêu cầu kết nối Dược sĩ chuyên môn...]
+      </div>
+    `;
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Add typing
+    showTyping();
+    
+    setTimeout(() => {
+      hideTyping();
+      messagesContainer.innerHTML += `
+        <div class="ai-msg bot" style="border-left: 4px solid var(--green-700);">
+          💬 **Dược sĩ Trần Thị Hằng** đã tham gia cuộc hội thoại.<br><br>
+          "Chào bạn, tôi là Dược sĩ Hằng trực phòng máy. Tôi vừa nhận được yêu cầu hỗ trợ về sản phẩm thuốc kê đơn. 
+          
+          Để mua thuốc kê đơn (Rx) một cách an toàn và đúng quy định pháp luật, xin vui lòng gửi ảnh chụp đơn thuốc của bác sĩ kê cho bạn nhé. Tôi sẵn sàng tiếp nhận và hướng dẫn bạn ngay bây giờ."
+        </div>
+      `;
+      // Update Chat Header Info to display pharmacist name
+      const titleEl = document.querySelector('.ai-title');
+      const subtitleEl = document.querySelector('.ai-subtitle');
+      if (titleEl) titleEl.innerText = "Dược sĩ Trần Thị Hằng";
+      if (subtitleEl) subtitleEl.innerText = "Dược sĩ chuyên môn trực tuyến";
+      
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 1500);
   }
 </script>
 </body>
