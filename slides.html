@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Healthcare AI - FPT Long Châu Chatbot NEO</title>
+  <!-- RevealJS CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+  <!-- RevealJS Theme (Sleek Dark Theme modified with brand colors) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css" id="theme">
+  <!-- Google Fonts Outfit & Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --r-main-font: 'Inter', sans-serif;
+      --r-heading-font: 'Outfit', sans-serif;
+      --brand-blue: #1250dc;
+      --brand-light-blue: #306de4;
+      --brand-green: #12b76a;
+      --brand-red: #f04438;
+      --bg-gradient: linear-gradient(135deg, #0b1528 0%, #032b80 100%);
+    }
+
+    .reveal {
+      font-family: var(--r-main-font);
+      background: var(--bg-gradient);
+      color: #e2e8f0;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: var(--r-heading-font);
+      font-weight: 700;
+      text-transform: none;
+      color: #ffffff;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .reveal h1 {
+      font-size: 2.5em;
+      background: linear-gradient(to right, #ffffff, #6ba4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .reveal h2 {
+      font-size: 1.8em;
+      border-bottom: 3px solid var(--brand-blue);
+      padding-bottom: 10px;
+      display: inline-block;
+      margin-bottom: 40px;
+    }
+
+    .reveal h3 {
+      color: #6ba4ff;
+    }
+
+    .reveal p, .reveal li {
+      font-size: 0.85em;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .highlight-blue {
+      color: #4da6ff;
+      font-weight: 600;
+    }
+
+    .highlight-green {
+      color: var(--brand-green);
+      font-weight: 600;
+    }
+
+    .highlight-red {
+      color: #ff6b6b;
+      font-weight: 600;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      backdrop-filter: blur(8px);
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .card-title {
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 12px;
+      font-size: 1.1em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.6em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .badge-blue { background: rgba(18, 80, 220, 0.2); border: 1px solid var(--brand-light-blue); color: #82b1ff; }
+    .badge-green { background: rgba(18, 183, 106, 0.2); border: 1px solid var(--brand-green); color: #85f4b7; }
+    .badge-red { background: rgba(240, 68, 56, 0.2); border: 1px solid var(--brand-red); color: #ff9b9b; }
+
+    .footer-note {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.5em !important;
+      opacity: 0.6;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Slide 1: Cover -->
+      <section data-transition="zoom">
+        <div style="margin-top: 80px;">
+          <span class="badge badge-blue">Healthcare Track (Zone 5)</span>
+          <h1 style="margin: 20px 0 10px 0; font-size: 2.2em; font-family: 'Outfit'; font-weight: 800;">FPT Long Châu AI Chatbot NEO</h1>
+          <p style="font-size: 1.1em; font-weight: 500; color: #93c5fd;">Trợ lý tư vấn cá nhân hóa & Safety Guardrail thông minh</p>
+          <div style="margin-top: 50px; font-size: 0.9em; color: #cbd5e1; line-height: 1.8;">
+            <p><strong>Nhóm 5 - HealthCare AI Squad (Lớp C401)</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Problem Statement -->
+      <section data-transition="slide-in fade-out">
+        <h2>Vấn Đề Thực Tế (Painpoints)</h2>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="highlight-red">⏳</span> Quá tải Dược sĩ thật</div>
+            <p style="font-size: 0.8em;">Dược sĩ trực tuyến bị quá tải bởi các câu hỏi mua sắm đơn giản (VD: tìm sữa rửa mặt dưới 200k, kem chống nắng...). Khách hàng cần tư vấn khẩn cấp/kê đơn phải chờ lâu <strong>(5-15 phút)</strong>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="highlight-red">🔍</span> Rác tìm kiếm / Quá tải thông tin</div>
+            <p style="font-size: 0.8em;">Tìm kiếm thô trên trang web trả về hàng trăm sản phẩm. Không có bộ lọc chuyên sâu để tư vấn cá nhân hóa (theo loại da dầu, mụn, nhạy cảm...).</p>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-title"><span class="highlight-red">🚨</span> Rủi ro pháp lý & Sức khỏe nghiêm trọng</div>
+          <p style="font-size: 0.8em;">Khách hàng tự chẩn đoán bệnh lý lâm sàng và yêu cầu mua <strong>thuốc kê đơn (Rx) đặc trị</strong> (như Isotretinoin, kháng sinh...) bừa bãi không có chỉ định bác sĩ.</p>
+        </div>
+      </section>
+
+      <!-- Slide 3: Build Slice (Lát cắt sản phẩm) -->
+      <section data-transition="fade">
+        <h2>Lát Cắt Chọn Build (Build Slice)</h2>
+        <div class="card" style="background: rgba(18, 80, 220, 0.1); border-color: rgba(48, 109, 228, 0.4);">
+          <p style="font-size: 1.1em; line-height: 1.8; text-align: justify; color: #f1f5f9;">
+            Cho <span class="highlight-blue">khách hàng đang tìm mua sản phẩm trị mụn/skincare trên kênh chat</span>,<br> 
+            prototype dùng AI để <span class="highlight-blue">tư vấn cá nhân hóa qua câu hỏi chủ động (Clarifying) và tự động nhận diện chặn lọc các câu hỏi y khoa đặc trị (Safety Guardrail)</span>,<br> 
+            tạo ra <span class="highlight-blue">gợi ý 2-3 sản phẩm phù hợp + link trang sản phẩm kèm nút "Thêm nhanh vào giỏ hàng"</span>,<br> 
+            và xử lý failure mode bằng cách <span class="highlight-red">từ chối tư vấn y tế đặc trị, hiển thị cảnh báo đỏ và cho phép kết nối ngay lập tức với Dược sĩ Trần Thị Hằng</span>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 4: Key AI Features (Các tính năng cốt lõi) -->
+      <section data-transition="slide-in fade-out">
+        <h2>Tính Năng Cốt Lõi Của Chatbot</h2>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="highlight-green">💬</span> Hỏi chủ động (Clarifying)</div>
+            <p style="font-size: 0.75em;">Khi user hỏi chung chung như <em>"tư vấn skincare"</em>, NEO hỏi ngược lại tình trạng da (da dầu, khô, mụn, nhạy cảm) để đề xuất chuẩn xác thay vì liệt kê ồ ạt.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="highlight-green">🛡️</span> Safety Guardrail</div>
+            <p style="font-size: 0.75em;">Lớp lọc 2 tầng (Keyword blacklist + LLM Classifier) nhận diện thuốc kê đơn (Rx) hoặc triệu chứng lâm sàng đặc trị để chặn tư vấn y tế trái phép.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="highlight-green">📞</span> Bàn giao người thật (Handover)</div>
+            <p style="font-size: 0.75em;">Khi bị chặn y tế hoặc khi user bấm nút <strong>"Liên hệ Dược sĩ"</strong>, hệ thống tự động đổi UI, đưa Dược sĩ Hằng vào tiếp quản cuộc chat với đầy đủ lịch sử hội thoại.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="highlight-green">🔄</span> Nút Làm mới (Session Reset)</div>
+            <p style="font-size: 0.75em;">Nút "Làm mới" ngay trên chatbot giúp reset nhanh phiên tư vấn và xoá lịch sử chat cũ, chuyển sang vấn đề mới lập tức không cần tải lại trang.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: AI Product Thinking -->
+      <section data-transition="slide">
+        <h2>AI Product Thinking</h2>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="badge badge-green">Conditional Automation</span></div>
+            <ul style="font-size: 0.7em; padding-left: 15px; color: #cbd5e1;">
+              <li><strong>Tự động hóa (Automate):</strong> Trả lời 24/7 tức thì cho các sản phẩm skincare thông thường, FAQ (đổi trả, tích điểm, hotline) để giải tỏa quá tải.</li>
+              <li><strong>Tăng cường (Augment):</strong> Khi có rủi ro lâm sàng/thuốc đặc trị, AI chuyển giao sang Dược sĩ thật trực tiếp xử lý.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="badge badge-red">Jailbreak / Failure Mitigation</span></div>
+            <ul style="font-size: 0.7em; padding-left: 15px; color: #cbd5e1;">
+              <li><strong>Jailbreak lách luật:</strong> Người dùng hỏi mẹo lách luật bôi thuốc Rx -> AI giữ ranh giới cảnh báo từ chối.</li>
+              <li><strong>Tín hiệu học:</strong> Lưu log feedback nút 👍/👎 để tinh chỉnh prompt hệ thống hàng tuần.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Technical Implementation -->
+      <section data-transition="slide-in zoom-out">
+        <h2>Giải Pháp Kỹ Thuật (Tech Stack)</h2>
+        <div class="card">
+          <div class="card-title"><span class="highlight-blue">⚙️</span> Flask Backend & NextJS Proxy Cache</div>
+          <p style="font-size: 0.75em;">Tự build proxy bypass CORS hoàn toàn và cache cục bộ các static chunks CSS/JS/Fonts của trang chủ Long Châu nhằm tăng tốc độ tải trang lên gấp 5 lần.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="highlight-blue">⚡</span> Dynamic Injected Hydration</div>
+          <p style="font-size: 0.75em;">Chatbot & Modal được chèn động vào DOM sau khi NextJS hoàn thành hydration (delay 1.2s). Khắc phục triệt để lỗi React Hydration mismatch console errors (#418, #425).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="highlight-blue">🤖</span> Gemini 2.5 Flash + Local NLU Fallback</div>
+          <p style="font-size: 0.75em;">Xử lý ngôn ngữ tự nhiên thông minh qua Gemini 2.5 Flash với nhiệt độ thấp (0.7). Đi kèm bộ lọc Regex NLU chạy cục bộ phòng hờ mất kết nối internet/API key.</p>
+        </div>
+      </section>
+
+      <!-- Slide 7: Demo Paths & Future Work -->
+      <section data-transition="slide-in fade-out">
+        <h2>Kịch Bản Demo & Tương Lai</h2>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="highlight-green">Happy & Safety Path</span></div>
+            <p style="font-size: 0.75em;">1. Chatbot hỏi thăm da mặt -> Gợi ý Cetaphil/CeraVe kèm nút thêm nhanh vào giỏ hàng.<br>
+            2. Hỏi: "Tôi bị mụn mủ to cần mua kháng sinh bôi mụn Clindamycin" -> Chatbot kích hoạt Guardrail cảnh báo đỏ, hiện nút kết nối Dược sĩ Hằng.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="highlight-blue">Future Work</span></div>
+            <p style="font-size: 0.75em;">- Tích hợp nhận diện hình ảnh đơn thuốc bác sĩ kê qua Multimodal LLM.<br>
+            - Mở rộng Blacklist hoạt chất kê đơn tự động từ CSDL Dược Quốc gia.</p>
+          </div>
+        </div>
+        <div style="margin-top: 40px; font-size: 1.2em; font-weight: bold; color: #ffd700;">
+          🎉 CẢM ƠN CÁC BẠN ĐÃ LẮNG NGHE! Q&A
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- RevealJS Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+  <script>
+    // Initialize Reveal.js with modern settings
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      center: true,
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      dependencies: []
+    });
+  </script>
+</body>
+</html>
