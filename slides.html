@@ -9,18 +9,19 @@
   <style>
     :root {
       --primary: #1250dc;
-      --primary-glow: rgba(18, 80, 220, 0.35);
+      --primary-glow: rgba(18, 80, 220, 0.15);
       --secondary: #12b76a;
-      --secondary-glow: rgba(18, 183, 106, 0.35);
-      --danger: #f04438;
-      --danger-glow: rgba(240, 68, 56, 0.3);
+      --secondary-glow: rgba(18, 183, 106, 0.15);
+      --danger: #d92d20;
+      --danger-glow: rgba(217, 45, 32, 0.12);
       --warning: #f79009;
-      --warning-glow: rgba(247, 144, 9, 0.3);
-      --bg-dark: #0b0f19;
-      --bg-card: rgba(17, 24, 39, 0.75);
-      --border-color: rgba(255, 255, 255, 0.08);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --warning-glow: rgba(247, 144, 9, 0.12);
+      --bg-dark: #f4f6fc;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --border-color: rgba(18, 80, 220, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #334155;
+      --card-shadow: 0 10px 30px rgba(18, 80, 220, 0.06);
     }
 
     * {
@@ -38,13 +39,13 @@
       width: 100vw;
     }
 
-    /* Ambient background glows */
+    /* Ambient background glows - Clean Blue & Emerald Medical blobs */
     .glowing-blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(140px);
+      filter: blur(120px);
       z-index: 1;
-      opacity: 0.45;
+      opacity: 0.7;
       pointer-events: none;
     }
 
@@ -83,7 +84,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      padding: 40px 6% 60px 6%;
+      padding: 45px 6% 60px 6%;
       opacity: 0;
       transform: translateX(100px);
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
@@ -116,7 +117,7 @@
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--secondary);
+      color: var(--primary);
       letter-spacing: 2px;
       margin-bottom: 6px;
       display: inline-block;
@@ -125,7 +126,7 @@
     .slide-title {
       font-size: 32px;
       font-weight: 800;
-      background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+      background: linear-gradient(135deg, #0f172a 30%, #1e293b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.2;
@@ -158,7 +159,7 @@
       align-items: stretch;
     }
 
-    /* Card styling - Glassmorphism */
+    /* Card styling - Premium Light Glassmorphism */
     .glass-card {
       background: var(--bg-card);
       backdrop-filter: blur(12px);
@@ -166,7 +167,7 @@
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 20px 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      box-shadow: var(--card-shadow);
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
@@ -174,9 +175,9 @@
     }
 
     .glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: rgba(18, 80, 220, 0.2);
       transform: translateY(-2px);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 12px 35px rgba(18, 80, 220, 0.12);
     }
 
     /* Slide 1: Title */
@@ -189,17 +190,18 @@
 
     .title-slide h1 {
       font-size: 48px;
-      font-weight: 900;
+      font-weight: 950;
       margin-bottom: 12px;
       line-height: 1.15;
       letter-spacing: -1px;
-      background: linear-gradient(135deg, #ffffff 40%, #5b87ec 100%);
+      background: linear-gradient(135deg, #0f172a 40%, #1e293b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .title-slide .badge-ai {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #ffffff;
       padding: 6px 18px;
       border-radius: 50px;
       font-weight: 700;
@@ -208,7 +210,7 @@
       text-transform: uppercase;
       margin-bottom: 24px;
       display: inline-block;
-      box-shadow: 0 4px 15px rgba(18, 80, 220, 0.4);
+      box-shadow: 0 4px 15px rgba(18, 80, 220, 0.25);
     }
 
     .title-slide h2 {
@@ -227,15 +229,15 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 16px;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(18, 80, 220, 0.04);
       padding: 12px 24px;
       border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(18, 80, 220, 0.08);
       max-width: 950px;
     }
 
     .team-info span strong {
-      color: var(--secondary);
+      color: var(--primary);
     }
 
     /* Progress bar */
@@ -260,8 +262,8 @@
     }
 
     .control-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(18, 80, 220, 0.15);
       color: var(--text-main);
       width: 44px;
       height: 44px;
@@ -273,18 +275,21 @@
       transition: all 0.2s ease;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .control-btn:hover {
       background: var(--primary);
       border-color: var(--primary);
+      color: #fff;
       box-shadow: 0 0 15px var(--primary-glow);
     }
 
     .control-btn:disabled {
-      opacity: 0.3;
+      opacity: 0.35;
       cursor: not-allowed;
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255, 255, 255, 0.4);
+      box-shadow: none;
     }
 
     .control-btn svg {
@@ -299,7 +304,7 @@
       bottom: 34px;
       left: 40px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-muted);
       z-index: 100;
     }
@@ -309,22 +314,22 @@
       font-size: 17px;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--text-main);
     }
 
     .highlight-text {
-      color: var(--secondary);
-      font-weight: 600;
+      color: var(--primary);
+      font-weight: 700;
     }
 
     .danger-text {
       color: var(--danger);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .warning-text {
       color: var(--warning);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     p {
@@ -348,7 +353,7 @@
 
     li::before {
       content: "•";
-      color: var(--secondary);
+      color: var(--primary);
       font-weight: bold;
       font-size: 16px;
       position: absolute;
@@ -366,13 +371,13 @@
 
     /* Build Slice Card Styling */
     .slice-card {
-      border-left: 5px solid var(--secondary);
-      background: linear-gradient(135deg, rgba(18, 183, 106, 0.05) 0%, rgba(18, 24, 39, 0.8) 100%);
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(135deg, rgba(18, 80, 220, 0.03) 0%, rgba(255, 255, 255, 0.9) 100%);
     }
 
     .slice-step {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(18, 80, 220, 0.02);
+      border: 1px solid rgba(18, 80, 220, 0.05);
       border-radius: 8px;
       padding: 8px 12px;
       margin-bottom: 6px;
@@ -382,13 +387,13 @@
       font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--secondary);
+      color: var(--primary);
       margin-bottom: 2px;
     }
 
     .slice-value {
       font-size: 12.5px;
-      color: #f8fafc;
+      color: var(--text-main);
       font-weight: 500;
       line-height: 1.35;
     }
@@ -407,8 +412,8 @@
       max-width: 100%;
       max-height: 360px;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 8px 25px rgba(18, 80, 220, 0.08);
       object-fit: contain;
     }
 
@@ -428,7 +433,7 @@
       left: 8%;
       right: 8%;
       height: 2px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(18, 80, 220, 0.08);
       z-index: 1;
     }
 
@@ -446,8 +451,8 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #1e293b;
-      border: 2px solid var(--border-color);
+      background: #f8fafc;
+      border: 2px solid rgba(18, 80, 220, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -455,33 +460,34 @@
       margin-bottom: 10px;
       color: var(--text-muted);
       transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.03);
     }
 
     .step-node.active .step-icon {
       background: var(--primary);
-      border-color: #38bdf8;
+      border-color: var(--primary);
       color: #fff;
-      box-shadow: 0 0 15px var(--primary-glow);
+      box-shadow: 0 0 15px rgba(18, 80, 220, 0.25);
     }
 
     .step-node.success .step-icon {
       background: var(--secondary);
-      border-color: #34d399;
+      border-color: var(--secondary);
       color: #fff;
-      box-shadow: 0 0 15px var(--secondary-glow);
+      box-shadow: 0 0 15px rgba(18, 183, 106, 0.25);
     }
 
     .step-node.danger .step-icon {
       background: var(--danger);
-      border-color: #f87171;
+      border-color: var(--danger);
       color: #fff;
-      box-shadow: 0 0 15px var(--danger-glow);
+      box-shadow: 0 0 15px rgba(217, 45, 32, 0.25);
     }
 
     .step-title {
       font-size: 12px;
       font-weight: 600;
-      color: #fff;
+      color: var(--text-main);
       margin-bottom: 4px;
     }
 
@@ -517,25 +523,25 @@
 
     th {
       text-align: left;
-      padding: 8px 12px;
+      padding: 10px 14px;
       font-size: 11.5px;
       font-weight: 700;
-      color: var(--secondary);
-      border-bottom: 2px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.01);
+      color: var(--primary);
+      border-bottom: 2px solid rgba(18, 80, 220, 0.08);
+      background: rgba(18, 80, 220, 0.02);
     }
 
     td {
-      padding: 8px 12px;
+      padding: 10px 14px;
       font-size: 11.5px;
       color: var(--text-muted);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(18, 80, 220, 0.04);
       line-height: 1.35;
     }
 
     tr:hover td {
-      color: #fff;
-      background: rgba(255,255,255,0.01);
+      color: var(--text-main);
+      background: rgba(18, 80, 220, 0.01);
     }
 
     /* Flow Badge */
@@ -548,19 +554,19 @@
       text-transform: uppercase;
     }
     
-    .badge-happy { background: rgba(18, 183, 106, 0.15); color: var(--secondary); }
-    .badge-fail { background: rgba(240, 68, 56, 0.15); color: var(--danger); }
-    .badge-correct { background: rgba(247, 144, 9, 0.15); color: #f79009; }
+    .badge-happy { background: rgba(18, 183, 106, 0.08); color: var(--secondary); }
+    .badge-fail { background: rgba(217, 45, 32, 0.08); color: var(--danger); }
+    .badge-correct { background: rgba(247, 144, 9, 0.08); color: #f79009; }
 
     /* Code block view */
     .code-block {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: #1e293b;
+      border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 8px;
       padding: 10px;
       font-family: 'Courier New', Courier, monospace;
       font-size: 10px;
-      color: #cbd5e1;
+      color: #f1f5f9;
       overflow-x: auto;
       margin-top: 6px;
       line-height: 1.35;
@@ -699,7 +705,7 @@
             <ul>
               <li><strong>Ràng buộc sản phẩm:</strong> Chỉ tư vấn và gợi ý các sản phẩm có trong CSDL được truyền vào ngữ cảnh. Nghiêm cấm bịa đặt tên sản phẩm.</li>
               <li><strong>Ràng buộc hình thức:</strong> Phản hồi ngắn gọn, thân thiện (tối đa 5-6 dòng), bắt buộc hiển thị tên sản phẩm kèm giá bán.</li>
-              <li><strong>Chỉ thị chuyển giao:</strong> Nếu câu hỏi về sản phẩm thuộc danh mục "Thuốc" (Medicines) hoặc câu hỏi y tế phức tạp → từ chối lịch sự và thêm thẻ <code style="color: var(--secondary)">[HANDOVER]</code> ở cuối.</li>
+              <li><strong>Chỉ thị chuyển giao:</strong> Nếu câu hỏi về sản phẩm thuộc danh mục "Thuốc" (Medicines) hoặc câu hỏi y tế phức tạp → từ chối lịch sự và thêm thẻ <code style="color: var(--primary)">[HANDOVER]</code> ở cuối.</li>
             </ul>
           </div>
           <div class="glass-card">
@@ -731,14 +737,14 @@
               <li>Giả lập luồng kết nối và đưa ra thông báo: <em>"Để mua thuốc kê đơn (Rx) an toàn, vui lòng gửi ảnh chụp đơn thuốc của bác sĩ..."</em></li>
             </ul>
           </div>
-          <div class="glass-card" style="justify-content: center; background: rgba(0, 0, 0, 0.2);">
-            <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); background: #0b0f19;">
-              <div style="background: linear-gradient(135deg, #12b76a, #027a48); padding: 10px 16px; font-size: 12px; font-weight: bold;">
+          <div class="glass-card" style="justify-content: center; background: rgba(0, 0, 0, 0.03);">
+            <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(18, 80, 220, 0.15); background: #ffffff;">
+              <div style="background: linear-gradient(135deg, #12b76a, #027a48); color: white; padding: 10px 16px; font-size: 12px; font-weight: bold;">
                 💬 Dược sĩ Trần Thị Hằng đã tham gia cuộc trò chuyện
               </div>
-              <div style="padding: 16px; font-size: 12px; text-align: left; line-height: 1.5;">
-                <p style="color: #34d399; font-weight: bold; margin-bottom: 4px;">Dược sĩ Hằng:</p>
-                <p style="color: #cbd5e1;">"Chào bạn, tôi là Dược sĩ Hằng trực phòng máy. Tôi vừa nhận được yêu cầu hỗ trợ về sản phẩm thuốc kê đơn. Vui lòng tải lên ảnh chụp đơn thuốc để được hỗ trợ mua hàng nhanh nhất."</p>
+              <div style="padding: 16px; font-size: 12px; text-align: left; line-height: 1.5; color: #334155;">
+                <p style="color: #027a48; font-weight: bold; margin-bottom: 4px;">Dược sĩ Hằng:</p>
+                <p>"Chào bạn, tôi là Dược sĩ Hằng trực phòng máy. Tôi vừa nhận được yêu cầu hỗ trợ về sản phẩm thuốc kê đơn. Vui lòng tải lên ảnh chụp đơn thuốc để được hỗ trợ mua hàng nhanh nhất."</p>
               </div>
             </div>
           </div>
@@ -767,10 +773,10 @@
             <h3 class="highlight-text">Cơ sở dữ liệu sản phẩm chuẩn hóa</h3>
             <p style="margin-bottom: 8px;">Dữ liệu sau khi cào được lưu trữ dưới dạng JSON gồm các trường thông tin:</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
-              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>name:</strong> Tên hiển thị web</div>
-              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>slug:</strong> Đường dẫn SP</div>
-              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>price/unit:</strong> Giá bán & đơn vị</div>
-              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>is_prescription:</strong> Cờ Rx</div>
+              <div style="background: rgba(18, 80, 220, 0.02); padding: 6px; border-radius: 4px; border: 1px solid rgba(18, 80, 220, 0.04);">• <strong>name:</strong> Tên hiển thị web</div>
+              <div style="background: rgba(18, 80, 220, 0.02); padding: 6px; border-radius: 4px; border: 1px solid rgba(18, 80, 220, 0.04);">• <strong>slug:</strong> Đường dẫn SP</div>
+              <div style="background: rgba(18, 80, 220, 0.02); padding: 6px; border-radius: 4px; border: 1px solid rgba(18, 80, 220, 0.04);">• <strong>price/unit:</strong> Giá bán & đơn vị</div>
+              <div style="background: rgba(18, 80, 220, 0.02); padding: 6px; border-radius: 4px; border: 1px solid rgba(18, 80, 220, 0.04);">• <strong>is_prescription:</strong> Cờ Rx</div>
             </div>
             <p style="margin-top: 10px; font-size: 12px;">Cơ sở dữ liệu bao gồm hơn 500+ sản phẩm chi tiết đang được sử dụng trực tiếp trong ứng dụng.</p>
           </div>
@@ -876,7 +882,7 @@
           </div>
           <div class="glass-card">
             <h3 class="highlight-text">Mô tả Luồng Dữ Liệu Chi Tiết</h3>
-            <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; font-size: 11.5px; line-height: 1.5;">
+            <div style="background: rgba(18, 80, 220, 0.02); border: 1px dashed rgba(18, 80, 220, 0.08); border-radius: 10px; padding: 12px; font-size: 11.5px; line-height: 1.5; color: var(--text-muted);">
               <strong>1. Client request:</strong> Người dùng truy cập hoặc tương tác với Chatbot.<br>
               <strong>2. Server Proxying:</strong> Lấy dữ liệu tĩnh gốc nếu chưa có trong đệm, rewrite lại URL rồi gửi cho Client.<br>
               <strong>3. API Query:</strong> Client gọi API chat/tìm kiếm. Backend kiểm soát đầu vào an toàn.<br>
