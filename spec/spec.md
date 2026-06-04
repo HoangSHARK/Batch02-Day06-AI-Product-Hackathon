@@ -155,5 +155,5 @@ Mọi tương tác user (gợi ý không phù hợp / yêu cầu gặp dược s
 | **A** | Research / evidence | [evidence-pack-template.md](02-group-spec/evidence-pack-template.md) hoàn thiện, bảng blacklist thuốc kê đơn, danh mục skincare gợi ý. |
 | **B** | SPEC | [thin-spec-template.md](02-group-spec/thin-spec-template.md) hoàn thiện, prompt templates cho AI (system prompt + intent classifier). |
 | **C** | Prototype | Mã nguồn chatbot (Python/Streamlit hoặc LangChain) chạy local, `requirements.txt`, hướng dẫn chạy. |
-| **D** | Test / failure path | Bảng test case jailbreak (pass/fail), video kiểm thử Failure Mode. |
+| Vũ Quốc Tấn | Test / failure path | Bảng test case jailbreak (pass/fail), video kiểm thử Failure Mode. |
 | **E** | Demo script / repo | Slide thuyết trình, README giới thiệu dự án, demo pitching 3 phút. |

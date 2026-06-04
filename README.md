@@ -1,8 +1,16 @@
 # Batch 02 · Day 06 — AI Product Hackathon
+# Nhóm 5 - HealthCare AI Squad (Lớp C401)
 
-> SPEC → Prototype → Demo. Hôm nay không có bài giảng mới — hôm nay chứng minh: SPEC là giả thuyết, prototype là bằng chứng, demo là thuyết phục.
+### Thành viên nhóm:
+1. **Vũ Tuấn Hoàng** (Mã học viên: *[Cần điền]* - GitHub: @HoangSHARK)
+2. **Võ Huyền Khánh Mây** (Mã học viên: *[Cần điền]* - GitHub: @khanhmay004)
+3. **Nguyễn Thị Mai Anh** (Mã học viên: *[Cần điền]* - GitHub: @blue)
+
+### Mô tả ngắn sản phẩm:
+**FPT Long Châu AI Chatbot NEO** - Trợ lý ảo tư vấn chăm sóc cá nhân hóa (Skincare, chăm sóc bé, TPCN) tích hợp **Safety Guardrail** chặn y tế thông minh (chặn các thuốc đặc trị Rx, chẩn đoán bệnh) và tự động chuyển đổi sang cuộc trò chuyện của **Dược sĩ chuyên môn** khi phát hiện yêu cầu hạn chế y tế.
 
 ---
+
 
 ## Cách nộp bài
 
