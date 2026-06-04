@@ -298,19 +298,50 @@ def home():
     return render_template("index.html")
 
 
+def save_products_db():
+    """Save PRODUCTS list back to products.json."""
+    try:
+        path = os.path.join(os.path.dirname(__file__), "products.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(PRODUCTS, f, ensure_ascii=False, indent=2)
+        print("💾 Saved updated products database to products.json")
+    except Exception as e:
+        print(f"Error saving products database: {e}")
+
+
 @app.route("/product/<path:slug>")
 def product_page(slug):
     """Full product detail page with live data + AI chat panel."""
     # Fix spaces in slug
     slug = slug.replace(" ", "-")
-    # Try live API first, fallback to local DB
+    
+    # 1. Look in local database PRODUCTS first
+    local_prod = None
+    for p in PRODUCTS:
+        if p.get("slug", "") == slug or slug in p.get("slug", ""):
+            local_prod = p
+            break
+            
+    # If we have local product AND it already has detailed data (e.g., description or producer)
+    if local_prod and (local_prod.get("description") or local_prod.get("producer") or local_prod.get("dosageForm")):
+        print(f"⚡ Cache Hit: Loaded details for {slug} from local database")
+        return render_template("product_detail.html", product=local_prod)
+        
+    # 2. Cache miss: Fetch live product details from network
+    print(f"🌐 Cache Miss: Fetching live details for {slug} from network")
     product = fetch_live_product(slug)
-    if not product:
-        for p in PRODUCTS:
-            if slug in p.get("slug", ""):
-                product = p
-                break
-    product = product or {"name": slug, "slug": slug}
+    
+    if product:
+        # Update local PRODUCTS list in-memory & save back to products.json
+        if local_prod:
+            local_prod.update(product)
+        else:
+            PRODUCTS.append(product)
+        save_products_db()
+    else:
+        # Fallback to whatever basic data we have locally
+        product = local_prod or {"name": slug, "slug": slug}
+        
     return render_template("product_detail.html", product=product)
 
 
