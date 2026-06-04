@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Trình Bày Chi Tiết - Chatbot AI NEO Long Châu</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1250dc;
+      --primary-glow: rgba(18, 80, 220, 0.35);
+      --secondary: #12b76a;
+      --secondary-glow: rgba(18, 183, 106, 0.35);
+      --danger: #f04438;
+      --danger-glow: rgba(240, 68, 56, 0.3);
+      --warning: #f79009;
+      --warning-glow: rgba(247, 144, 9, 0.3);
+      --bg-dark: #0b0f19;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Ambient background glows */
+    .glowing-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: 1;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 45vw;
+      height: 45vw;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+    }
+
+    .blob-2 {
+      bottom: -10%;
+      right: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, var(--secondary-glow) 0%, transparent 70%);
+    }
+
+    /* Slides container */
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    /* Individual slide */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 50px 6% 80px 6%;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .slide.past {
+      opacity: 0;
+      transform: translateX(-100px);
+      pointer-events: none;
+    }
+
+    /* Slide Content Layouts */
+    .slide-header {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 24px;
+      text-align: left;
+      align-self: flex-start;
+      flex-shrink: 0;
+    }
+
+    .slide-category {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--secondary);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .slide-title {
+      font-size: 34px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .slide-body {
+      width: 100%;
+      max-width: 1200px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0; /* Allow scaling */
+    }
+
+    /* Grid layouts */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    /* Card styling - Glassmorphism */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Slide 1: Title */
+    .title-slide {
+      text-align: center;
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .title-slide h1 {
+      font-size: 52px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #ffffff 40%, #5b87ec 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-slide .badge-ai {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(18, 80, 220, 0.4);
+    }
+
+    .title-slide h2 {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 800px;
+      line-height: 1.5;
+    }
+
+    .team-info {
+      font-size: 13px;
+      color: var(--text-main);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-width: 900px;
+    }
+
+    .team-info span strong {
+      color: var(--secondary);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 100;
+      transition: width 0.3s ease;
+    }
+
+    /* Slide Controls */
+    .controls {
+      position: fixed;
+      bottom: 24px;
+      right: 40px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .control-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .control-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .control-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Page number indicator */
+    .slide-number {
+      position: fixed;
+      bottom: 34px;
+      left: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      z-index: 100;
+    }
+
+    /* Typography & Utilities */
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .highlight-text {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .danger-text {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .warning-text {
+      color: var(--warning);
+      font-weight: 600;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style-type: none;
+      margin-top: 8px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--secondary);
+      font-weight: bold;
+      font-size: 18px;
+      position: absolute;
+      left: 0;
+      top: -3px;
+    }
+
+    li.danger-li::before {
+      color: var(--danger);
+    }
+
+    li.warning-li::before {
+      color: var(--warning);
+    }
+
+    /* Build Slice Card Styling */
+    .slice-card {
+      border-left: 5px solid var(--secondary);
+      background: linear-gradient(135deg, rgba(18, 183, 106, 0.05) 0%, rgba(18, 24, 39, 0.8) 100%);
+    }
+
+    .slice-step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+    }
+
+    .slice-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 2px;
+    }
+
+    .slice-value {
+      font-size: 13px;
+      color: #f8fafc;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* Step flow widget */
+    .step-flow {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: relative;
+      margin-top: 30px;
+    }
+
+    .step-flow::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.06);
+      z-index: 1;
+    }
+
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+      flex: 1;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .step-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+
+    .step-node.active .step-icon {
+      background: var(--primary);
+      border-color: #38bdf8;
+      color: #fff;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .step-node.success .step-icon {
+      background: var(--secondary);
+      border-color: #34d399;
+      color: #fff;
+      box-shadow: 0 0 15px var(--secondary-glow);
+    }
+
+    .step-node.danger .step-icon {
+      background: var(--danger);
+      border-color: #f87171;
+      color: #fff;
+      box-shadow: 0 0 15px var(--danger-glow);
+    }
+
+    .step-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      max-width: 160px;
+      line-height: 1.35;
+    }
+
+    /* Comparison columns */
+    .compare-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .compare-card {
+      border-top: 4px solid var(--primary);
+    }
+    
+    .compare-card.sec {
+      border-top-color: var(--secondary);
+    }
+
+    /* Table styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--secondary);
+      border-bottom: 2px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.01);
+    }
+
+    td {
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.4;
+    }
+
+    tr:hover td {
+      color: #fff;
+      background: rgba(255,255,255,0.01);
+    }
+
+    /* Flow Badge */
+    .flow-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    .badge-happy { background: rgba(18, 183, 106, 0.15); color: var(--secondary); }
+    .badge-fail { background: rgba(240, 68, 56, 0.15); color: var(--danger); }
+    .badge-correct { background: rgba(247, 144, 9, 0.15); color: #f79009; }
+
+    /* Code block view */
+    .code-block {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin-top: 8px;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .code-kw { color: #f472b6; }
+    .code-str { color: #34d399; }
+    .code-comment { color: #64748b; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient lights -->
+  <div class="glowing-blob blob-1"></div>
+  <div class="glowing-blob blob-2"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+
+  <!-- Slides Container -->
+  <div class="slides-container">
+
+    <!-- Slide 1: Hero Cover -->
+    <div class="slide title-slide active">
+      <div class="badge-ai">AI Hackathon Day 06</div>
+      <h1>FPT Long Châu AI Chatbot NEO</h1>
+      <h2>Trợ lý ảo tư vấn chăm sóc cá nhân hóa & Safety Guardrail thông minh</h2>
+      
+      <div class="team-info">
+        <span>Nhóm: <strong>HealthCare AI Squad (Nhóm 5)</strong></span>
+        <span>Lớp: <strong>C401</strong></span>
+        <span>Thành viên: <strong>Vũ Tuấn Hoàng, Võ Huyền Khánh Mây, Nguyễn Thị Mai Anh, Cao Văn Hảo, Vũ Quốc Tấn</strong></span>
+      </div>
+    </div>
+
+    <!-- Slide 2: Pain Points & Evidence (UX App-Teardown) -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Bối cảnh & Nghiên cứu UX</span>
+        <h2 class="slide-title">Vấn Đề Thực Tế & Khảo Sát Nỗi Đau</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="highlight-text">Tự trải nghiệm & Teardown App Long Châu</h3>
+            <p style="margin-bottom: 12px;">Từ phân tích thực tế hành vi mua sắm trực tuyến của nhóm khách hàng thế hệ mới:</p>
+            <ul>
+              <li><strong>Mê hồn trận sản phẩm:</strong> Tìm kiếm <em>"kem chống nắng cho da dầu mụn nhạy cảm"</em> trả về hơn 100 sản phẩm hỗn hợp (bao gồm cả thuốc đặc trị da liễu Rx). Không có bộ lọc chuyên biệt phân tích tình trạng da.</li>
+              <li><strong>Dịch vụ trực tuyến tắc nghẽn:</strong> Khi click nút <em>"Chat với Dược sĩ"</em>, hệ thống thường phản hồi sau <strong>5-15 phút</strong>.</li>
+              <li><strong>Nguyên nhân:</strong> Các Dược sĩ chuyên môn đang bị quá tải bởi các câu hỏi mua hàng đơn giản (ví dụ: tư vấn sữa rửa mặt, dầu gội, nước súc miệng).</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Review Người Dùng Trên Store & MXH</h3>
+            <p style="font-style: italic; margin-bottom: 14px; padding-left: 12px; border-left: 2px solid var(--secondary);">
+              "Mua skincare ở Long Châu thì yên tâm chính hãng nhưng chọn loại phù hợp mệt ghê. Hỏi dược sĩ ở quầy thì chị chỉ chuyên tư vấn thuốc trị bệnh, hỏi kem chống nắng vật lý hay hóa học thì chị ú ớ..."
+              <br><span style="font-size: 11px; color: var(--text-muted); font-style: normal;">— Trích Group "Cộng đồng Skincare Việt Nam"</span>
+            </p>
+            <p style="font-style: italic; margin-bottom: 14px; padding-left: 12px; border-left: 2px solid var(--secondary);">
+              "App Long Châu nên có chatbot tư vấn mấy món rửa mặt, dầu gội cho nhanh. Nhắn tin dược sĩ toàn phải chờ lâu..."
+              <br><span style="font-size: 11px; color: var(--text-muted); font-style: normal;">— Đánh giá 3 sao trên App Store</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Build Slice & Scope Boundaries -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Đặc tả sản phẩm</span>
+        <h2 class="slide-title">Lát Cắt Prototype & Phạm Vi Nghiệp Vụ</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card slice-card">
+            <h3>Đặc tả luồng Build Slice</h3>
+            <p style="margin-bottom: 12px;"><strong>Cho:</strong> Khách hàng đang tìm mua sản phẩm trị mụn/chăm sóc da trên kênh chat Long Châu.</p>
+            <p style="margin-bottom: 12px;"><strong>AI sẽ:</strong> Tư vấn cá nhân hóa sữa rửa mặt phù hợp (Skincare Assistant) qua 3 câu hỏi ngắn; đồng thời tự động nhận diện chặn lọc các câu hỏi y khoa đặc trị (Safety Guardrail).</p>
+            <p style="margin-bottom: 12px;"><strong>Tạo ra:</strong> Danh sách 2-3 sản phẩm phù hợp kèm link mua hàng HOẶC thông điệp từ chối tư vấn y tế kèm nút kết nối khẩn cấp với Dược sĩ.</p>
+            <p><strong>Xử lý lỗi:</strong> Khi người dùng cố tình lách luật hỏi thuốc kê đơn → từ chối, hiển thị cảnh báo đỏ và định tuyến trực tiếp sang Dược sĩ thật.</p>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Ranh Giới Nghiệp Vụ (Scope)</h3>
+            <h4 style="font-size: 13px; color: var(--secondary); margin: 8px 0 4px;">In-Scope (AI Tư Vấn Tự Động):</h4>
+            <p style="font-size: 12px; margin-bottom: 12px;">Dược mỹ phẩm (Skincare), Thực phẩm chức năng (TPCN), Chăm sóc cá nhân, Chăm sóc em bé, FAQ hệ thống (đổi trả, hotline, định vị chi nhánh).</p>
+            
+            <h4 style="font-size: 13px; color: var(--danger); margin: 8px 0 4px;">Out-of-Scope (Chặn & Handover):</h4>
+            <p style="font-size: 12px;">Danh mục "Thuốc" (Medicines), chẩn đoán triệu chứng lâm sàng phức tạp, kê đơn thuốc đặc trị Rx, hoặc các chủ đề ngoài sức khỏe (thời tiết, tin tức, lập trình,...).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Guardrail Layer 1 Details (Backend Keyword Filter) -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Safety Guardrail Lớp 1</span>
+        <h2 class="slide-title">Lớp 1: Bộ Lọc Backend Keyword Blacklist</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="danger-text">Ngăn chặn tức thì ở mức máy chủ</h3>
+            <p style="margin-bottom: 12px;">Trước khi gửi dữ liệu đầu vào của người dùng tới LLM, Backend Flask thực hiện quét tìm các từ khóa cấm để đảm bảo an toàn tuyệt đối và tiết kiệm token.</p>
+            <ul>
+              <li class="danger-li"><strong>Danh sách hoạt chất kê đơn (Rx):</strong> <code>amoxicillin</code>, <code>ciprofloxacin</code>, <code>isotretinoin</code>, <code>clindamycin</code>, <code>kháng sinh</code>, <code>thuốc ngủ</code>, <code>steroid</code>, <code>cortico</code>,...</li>
+              <li class="danger-li"><strong>Triệu chứng red-flag y khoa:</strong> <code>sốt phát ban</code>, <code>đau bụng uống gì</code>, <code>chẩn đoán bệnh</code>, <code>mèo cắn</code>, <code>chó cắn</code>, <code>tiêm dại</code>, <code>ho ra máu</code>, <code>đi ngoài ra máu</code>,...</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Thuật toán xử lý trên app.py</h3>
+            <div class="code-block">
+<span class="code-kw">def</span> <span style="color: #61afef;">check_safety</span>(message):
+    msg = message.lower()
+    rx_kws = [<span class="code-str">"kháng sinh"</span>, <span class="code-str">"kê đơn"</span>, <span class="code-str">"isotretinoin"</span>, ...]
+    diag_kws = [<span class="code-str">"triệu chứng"</span>, <span class="code-str">"chó cắn"</span>, <span class="code-str">"vắc-xin dại"</span>, ...]
+    
+    <span class="code-kw">for</span> kw <span class="code-kw">in</span> rx_kws:
+        <span class="code-kw">if</span> kw <span class="code-kw">in</span> msg: <span class="code-kw">return</span> <span class="code-kw">True</span>, kw
+    <span class="code-kw">for</span> kw <span class="code-kw">in</span> diag_kws:
+        <span class="code-kw">if</span> kw <span class="code-kw">in</span> msg: <span class="code-kw">return</span> <span class="code-kw">True</span>, kw
+    <span class="code-kw">return</span> <span class="code-kw">False</span>, <span class="code-str">""</span>
+            </div>
+            <p style="margin-top: 10px; font-size: 12px;">Kết quả quét `True` sẽ kích hoạt ngay lập tức khối tin nhắn cảnh báo y khoa màu đỏ ở Frontend mà không tốn tài nguyên gọi mô hình Gemini.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Guardrail Layer 2 Details (Gemini Prompts) -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Safety Guardrail Lớp 2</span>
+        <h2 class="slide-title">Lớp 2: Prompt Engineering & Phân Loại Ý Định</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="highlight-text">System Prompt Cho Trợ Lý NEO</h3>
+            <p style="margin-bottom: 12px;">Cấu hình nghiêm ngặt cho mô hình **Gemini 2.5 Flash** tại Backend:</p>
+            <ul>
+              <li><strong>Ràng buộc sản phẩm:</strong> Chỉ tư vấn và gợi ý các sản phẩm có trong CSDL được truyền vào ngữ cảnh. Nghiêm cấm bịa đặt tên sản phẩm.</li>
+              <li><strong>Ràng buộc hình thức:</strong> Phản hồi ngắn gọn, thân thiện (tối đa 5-6 dòng), bắt buộc hiển thị tên sản phẩm kèm giá bán.</li>
+              <li><strong>Chỉ thị chuyển giao:</strong> Nếu câu hỏi liên quan đến sản phẩm thuộc danh mục "Thuốc" (Medicines) hoặc câu hỏi y tế phức tạp → từ chối lịch sự và bắt buộc thêm thẻ <code style="color: var(--secondary)">[HANDOVER]</code> ở cuối câu.</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Quản Lý Context Lịch Sử Chat</h3>
+            <p style="margin-bottom: 10px;">Để tránh AI bị đánh lừa bởi các kịch bản Jailbreak qua nhiều lượt chat:</p>
+            <ul>
+              <li class="warning-li">Hệ thống phân tích lịch sử chat trong hàm <code>call_gemini</code>.</li>
+              <li class="warning-li">Tự động loại bỏ các cặp câu hỏi-trả lời cũ trong history nếu chúng chứa từ khóa bị chặn hoặc chứa các nội dung bị từ chối/cảnh báo.</li>
+              <li class="warning-li">Giới hạn history tối đa 6 tin nhắn gần nhất để giữ tính tập trung vào câu hỏi hiện tại.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Human Handover Mechanism -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Kết nối Dược sĩ</span>
+        <h2 class="slide-title">Cơ Chế Chuyển Tiếp Người Thật (Human Handover)</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="highlight-text">Tích hợp Kênh Dược Sĩ Trực Tuyến</h3>
+            <p style="margin-bottom: 12px;">Khi Safety Guardrail lớp 1 hoặc lớp 2 bị kích hoạt, Frontend sẽ xử lý chuyển đổi trạng thái giao diện một cách liền mạch:</p>
+            <ul>
+              <li>Ẩn toàn bộ thanh câu hỏi gợi ý nhanh (Suggestions Panel).</li>
+              <li>Thay đổi thông tin header của khung chat: từ <strong>🤖 Trợ lý AI NEO</strong> thành <strong>Dược sĩ Trần Thị Hằng (Chuyên môn trực tuyến)</strong>.</li>
+              <li>Giả lập luồng kết nối và đưa ra thông báo: <em>"Để mua thuốc kê đơn (Rx) an toàn, vui lòng gửi ảnh chụp đơn thuốc của bác sĩ..."</em></li>
+            </ul>
+          </div>
+          <div class="glass-card" style="justify-content: center; background: rgba(0, 0, 0, 0.2);">
+            <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); background: #0b0f19;">
+              <div style="background: linear-gradient(135deg, #12b76a, #027a48); padding: 10px 16px; font-size: 12px; font-weight: bold;">
+                💬 Dược sĩ Trần Thị Hằng đã tham gia cuộc trò chuyện
+              </div>
+              <div style="padding: 16px; font-size: 12px; text-align: left; line-height: 1.5;">
+                <p style="color: #34d399; font-weight: bold; margin-bottom: 4px;">Dược sĩ Hằng:</p>
+                <p style="color: #cbd5e1;">"Chào bạn, tôi là Dược sĩ Hằng trực phòng máy. Tôi vừa nhận được yêu cầu hỗ trợ về sản phẩm thuốc kê đơn. Vui lòng tải lên ảnh chụp đơn thuốc để được hỗ trợ mua hàng nhanh nhất."</p>
+              </div>
+            </div>
+            <p style="font-size: 11px; margin-top: 10px; text-align: center;">Mô phỏng luồng tiếp quản thực tế tại Frontend</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Data Pipeline -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Quy trình dữ liệu</span>
+        <h2 class="slide-title">Hệ Thống Thu Thập & Chuẩn Hóa Dữ Liệu</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="highlight-text">Cào dữ liệu tự động (Scraping Pipeline)</h3>
+            <p style="margin-bottom: 12px;">Xây dựng công cụ cào dữ liệu song song từ API Long Châu thực tế để tạo cơ sở tri thức cho chatbot:</p>
+            <ul>
+              <li>Sử dụng <code>ThreadPoolExecutor</code> với 5 worker luồng chạy song song để tăng tốc độ thu thập.</li>
+              <li>Phân tích hơn 50 từ khóa thương mại phổ biến trên 5 nhóm danh mục: Thuốc, Dược mỹ phẩm, TPCN, Chăm sóc em bé, Thiết bị y tế.</li>
+              <li>Trích xuất dữ liệu thô từ thẻ JSON <code>__NEXT_DATA__</code> của máy chủ NextJS để đảm bảo lấy cấu trúc dữ liệu gốc.</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Cơ sở dữ liệu sản phẩm chuẩn hóa</h3>
+            <p style="margin-bottom: 8px;">Dữ liệu sau khi cào được lưu trữ dưới dạng JSON ([products.json](file:///c:/Vinuni/Hackathon/longchau_clone/products.json)) gồm các trường thông tin:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>name:</strong> Tên hiển thị web</div>
+              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>slug:</strong> Đường dẫn SP</div>
+              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>price/unit:</strong> Giá bán & đơn vị</div>
+              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>is_prescription:</strong> Cờ Rx</div>
+              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>ingredients:</strong> Hoạt chất</div>
+              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>uses/warnings:</strong> Công dụng/Cảnh báo</div>
+            </div>
+            <p style="margin-top: 10px; font-size: 12px;">Cơ sở dữ liệu bao gồm hơn 500+ sản phẩm chi tiết đang được sử dụng trực tiếp trong ứng dụng.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: E2E Demo Scenarios Table -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Kịch bản thử nghiệm</span>
+        <h2 class="slide-title">Các Kịch Bản Trải Nghiệm Demo (End-to-End)</h2>
+      </div>
+      <div class="slide-body">
+        <table class="glass-card" style="padding: 8px;">
+          <thead>
+            <tr>
+              <th>Kịch bản</th>
+              <th>Đầu vào người dùng (Input)</th>
+              <th>Cách xử lý của Chatbot NEO</th>
+              <th>Trải nghiệm Frontend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="flow-badge badge-happy">Happy Path</span></td>
+              <td>"Tư vấn cho mình sữa rửa mặt trị mụn cho da dầu dưới 200k"</td>
+              <td>Quét CSDL tìm sữa rửa mặt, gọi Gemini viết phản hồi súc tích kèm tên + giá bán chính xác.</td>
+              <td>Hiển thị thẻ sản phẩm tương tác, người dùng click <strong>"🛒 Thêm giỏ"</strong> trực tiếp.</td>
+            </tr>
+            <tr>
+              <td><span class="flow-badge badge-fail">Failure Path</span></td>
+              <td>"Tôi bị mụn bọc nặng, tư vấn thuốc kháng sinh uống trị mụn"</td>
+              <td>Backend chặn cứng từ khóa "kháng sinh", không cho qua LLM để đảm bảo an toàn y tế tuyệt đối.</td>
+              <td>Hiển thị cảnh báo đỏ y tế và tự động chuyển giao giao diện chat sang <strong>Dược sĩ thật</strong>.</td>
+            </tr>
+            <tr>
+              <td><span class="flow-badge badge-correct">Correction</span></td>
+              <td>"Thế Clindamycin bôi mụn có được không?" (Jailbreak)</td>
+              <td>Gemini phát hiện hoạt chất Rx từ chối tư vấn và chèn tag <code>[HANDOVER]</code> ở cuối câu trả lời.</td>
+              <td>Frontend nhận diện thẻ tag và lập tức chuyển cuộc trò chuyện sang Dược sĩ Trần Thị Hằng.</td>
+            </tr>
+            <tr>
+              <td><span class="flow-badge badge-correct">Baby Formula</span></td>
+              <td>"Tư vấn cho tôi sữa công thức cho bé 1 tuổi"</td>
+              <td>Phát hiện sữa bột không bán. Thông báo lịch sự và gợi ý ngay các loại sữa tắm bé (Lactacyd, Bimunica).</td>
+              <td>Hiển thị câu trả lời và sản phẩm thay thế phù hợp, **không** chuyển giao Dược sĩ.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Slide 9: Technical Architecture Detail -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Kiến trúc kỹ thuật</span>
+        <h2 class="slide-title">Hệ Thống Proxy & Lưu Đệm Tài Nguyên Tĩnh</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="highlight-text">Tái Cấu Trúc CSS & JS Từ Web Gốc</h3>
+            <p style="margin-bottom: 12px;">Để đảm bảo bản clone giống 100% website gốc của Long Châu mà không gặp lỗi CORS:</p>
+            <ul>
+              <li><strong>Proxy chuyển tiếp:</strong> Viết các route Flask bắt lấy các file tĩnh NextJS từ <code>nhathuoclongchau.com.vn</code>.</li>
+              <li><strong>Chỉnh sửa động link:</strong> Phân tích và chuyển toàn bộ liên kết tuyệt đối của web gốc thành liên kết tương đối trỏ về server nội bộ.</li>
+              <li><strong>Local Asset Cache:</strong> Sử dụng cơ chế lưu cache bằng MD5 hash trên đĩa cứng của server tại <code>static_cache/</code> giúp tải trang nhanh tức thì.</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Mô tả Luồng Dữ Liệu Chi Tiết</h3>
+            <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 10px; padding: 16px; font-size: 12px; line-height: 1.6;">
+              <strong>1. Client request:</strong> Người dùng truy cập hoặc tương tác với Chatbot.<br>
+              <strong>2. Server Proxying:</strong> Lấy dữ liệu tĩnh gốc nếu chưa có trong đệm, rewrite lại URL rồi gửi cho Client.<br>
+              <strong>3. API Query:</strong> Client gọi API chat/tìm kiếm. Backend kiểm soát đầu vào an toàn.<br>
+              <strong>4. LLM Generation:</strong> Gemini phân tích và chèn cờ Handover nếu cần.<br>
+              <strong>5. Logging:</strong> Lưu logs feedback và tương tác người dùng.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Feasibility, Costs & Feedback Loop -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Khả thi & Tối ưu</span>
+        <h2 class="slide-title">Chi Phí Vận Hành & Vòng Lặp Phản Hồi</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2col">
+          <div class="glass-card">
+            <h3 class="highlight-text">Tối Ưu Hóa Chi Phí Thực Tế</h3>
+            <p style="margin-bottom: 12px;">Hệ thống được thiết kế để có thể ứng dụng thương mại rộng rãi:</p>
+            <ul>
+              <li><strong>Sử dụng mô hình nhỏ:</strong> Sử dụng Gemini 2.5 Flash giúp tốc độ phản hồi cực nhanh (&lt; 2s) và chi phí vô cùng rẻ (&lt; 500 VNĐ cho mỗi cuộc trò chuyện).</li>
+              <li><strong>Tiết kiệm Token bằng bộ lọc:</strong> Safety Guardrail lớp 1 ở Backend giúp lọc bớt các truy vấn rác/nguy hiểm mà không cần gọi LLM, giảm chi phí API đáng kể.</li>
+            </ul>
+          </div>
+          <div class="glass-card">
+            <h3 class="highlight-text">Feedback Loop (Vòng lặp tự học)</h3>
+            <p style="margin-bottom: 10px;">Để AI ngày càng hoàn thiện sau mỗi phiên chat của người dùng:</p>
+            <ul>
+              <li><strong>Lưu vết tự động:</strong> Khi người dùng bấm nút "Không phù hợp" hoặc khi hệ thống kích hoạt Handover, chi tiết cuộc chat được lưu tự động vào file <code>feedback_log.json</code>.</li>
+              <li><strong>Quy trình bảo trì hàng tuần:</strong> Đội ngũ quản trị sẽ duyệt lại log này để:
+                <br>1. Thêm hoạt chất mới vào Backend Blacklist.
+                <br>2. Cập nhật và tinh chỉnh Prompt của Gemini.
+                <br>3. Mở rộng tập dữ liệu kịch bản kiểm thử (Jailbreak test cases).
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: Team & Task Allocation -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Nhóm thực hiện</span>
+        <h2 class="slide-title">Phân Công Nhiệm Vụ & Sản Phẩm Đóng Góp</h2>
+      </div>
+      <div class="slide-body">
+        <table class="glass-card" style="padding: 8px;">
+          <thead>
+            <tr>
+              <th>Thành viên</th>
+              <th>Nhiệm vụ phụ trách</th>
+              <th>Sản phẩm đóng góp trong Repo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vũ Tuấn Hoàng</strong></td>
+              <td>Nghiên cứu UX / Thu thập bằng chứng</td>
+              <td>Tài liệu evidence-pack, danh sách blacklist hoạt chất kê đơn.</td>
+            </tr>
+            <tr>
+              <td><strong>Võ Huyền Khánh Mây</strong></td>
+              <td>Viết SPEC / Prompt Engineering</td>
+              <td>Tài liệu thin-spec-template, thiết lập prompt template cho AI.</td>
+            </tr>
+            <tr>
+              <td><strong>Cao Văn Hảo</strong></td>
+              <td>Lập trình Backend / Frontend</td>
+              <td>Xây dựng máy chủ Flask, tích hợp API Gemini, thiết kế giao diện chat.</td>
+            </tr>
+            <tr>
+              <td><strong>Nguyễn Thị Mai Anh</strong></td>
+              <td>Thu thập dữ liệu / Cào SP</td>
+              <td>Viết scrape.py, scrape_search.py, chuẩn hóa CSDL products.json.</td>
+            </tr>
+            <tr>
+              <td><strong>Vũ Quốc Tấn</strong></td>
+              <td>Kiểm thử / Kịch bản Failure mode</td>
+              <td>Lập bảng test case jailbreak (15+ câu thử lách luật), quay video demo.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Slide 12: Q&A / Thank you -->
+    <div class="slide title-slide">
+      <div class="badge-ai" style="background: linear-gradient(135deg, var(--secondary), var(--primary));">Cảm ơn hội đồng giám khảo</div>
+      <h1 style="font-size: 64px;">Q & A</h1>
+      <h2 style="color: var(--secondary); font-weight: 600;">Chúng em sẵn sàng tiếp nhận câu hỏi phản biện</h2>
+      <p style="max-width: 600px; margin: 0 auto; text-align: center; margin-top: 20px;">Dự án FPT Long Châu AI Chatbot NEO - Nhóm 5 Lớp C401.<br>Bản quyền Prototype thuộc về HealthCare AI Squad.</p>
+    </div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="control-btn" id="prevBtn" onclick="navigateSlide(-1)" disabled>
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </button>
+    <button class="control-btn" id="nextBtn" onclick="navigateSlide(1)">
+      <svg viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Slide Number Indicator -->
+  <div class="slide-number">
+    <span id="currentNum">1</span> / <span id="totalNum">12</span>
+  </div>
+
+  <!-- Navigation Script -->
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    
+    document.getElementById('totalNum').innerText = totalSlides;
+
+    function navigateSlide(direction) {
+      // Past slide
+      slides[currentSlide].classList.remove('active');
+      if (direction === 1) {
+        slides[currentSlide].classList.add('past');
+      } else {
+        slides[currentSlide].classList.remove('past');
+      }
+
+      currentSlide += direction;
+
+      // Handle active slide
+      if (currentSlide < 0) currentSlide = 0;
+      if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+
+      // Remove past status of future slides if going backward
+      if (direction === -1) {
+        slides[currentSlide].classList.remove('past');
+      }
+
+      slides[currentSlide].classList.add('active');
+      
+      // Update indicators
+      document.getElementById('currentNum').innerText = currentSlide + 1;
+      document.getElementById('progressBar').style.width = ((currentSlide) / (totalSlides - 1)) * 100 + '%';
+
+      // Update control states
+      document.getElementById('prevBtn').disabled = currentSlide === 0;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    }
+
+    // Keyboard listeners
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === 'Space') {
+        if (currentSlide < totalSlides - 1) {
+          navigateSlide(1);
+        }
+      } else if (event.key === 'ArrowLeft') {
+        if (currentSlide > 0) {
+          navigateSlide(-1);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
