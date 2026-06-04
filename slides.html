@@ -1051,10 +1051,16 @@
 
     // Dynamic Image Path Resolver
     document.addEventListener('DOMContentLoaded', () => {
-      const isRepoTemp = window.location.pathname.includes('/repo_temp/');
-      const basePath = isRepoTemp ? 'spec/evidence-screen-shots/' : 'repo_temp/spec/evidence-screen-shots/';
       document.querySelectorAll('img[data-src]').forEach(img => {
-        img.src = basePath + img.getAttribute('data-src');
+        const filename = img.getAttribute('data-src');
+        // Try direct path first
+        img.src = 'spec/evidence-screen-shots/' + filename;
+        
+        // Fallback to repo_temp if first fails (useful for local root slide)
+        img.onerror = () => {
+          img.src = 'repo_temp/spec/evidence-screen-shots/' + filename;
+          img.onerror = null; // prevent infinite loop if both fail
+        };
       });
     });
   </script>
