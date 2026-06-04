@@ -2,7 +2,7 @@
 # Nhóm 5 - HealthCare AI Squad (Lớp C401)
 
 ### Thành viên nhóm:
-1. **Vũ Tuấn Hoàng** (Mã học viên: *[Cần điền]* - GitHub: @HoangSHARK)
+1. **Vũ Tuấn Hoàng** (Mã học viên: 2A202600830 - GitHub: @HoangSHARK)
 2. **Võ Huyền Khánh Mây** (Mã học viên: 2A202600858 - GitHub: @khanhmay004)
 3. **Nguyễn Thị Mai Anh** (Mã học viên: *[Cần điền]* - GitHub: @blue)
 4. **Cao Văn Hảo** (Mã học viên: 2A202600874 - GitHub: @harozx)
