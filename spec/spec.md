@@ -1,6 +1,6 @@
 # SPEC sản phẩm — Chatbot AI Long Châu (Personal Care & Safety Guardrail)
 
-**Nhóm:** HealthCare AI Squad (Nhóm 5)
+**Nhóm:** HealthCare AI Squad (Nhóm C5 - Lớp E403)
 **Track:** AI Commerce & Health Assistance
 **Product gốc:** FPT Long Châu (App di động & Website)
 **Build slice:** Chatbot AI tư vấn cá nhân hóa dòng sản phẩm chăm sóc cá nhân (skincare, haircare, dược mỹ phẩm cơ bản) cho khách hàng trẻ, kèm Safety Guardrail tự động chặn câu hỏi y khoa kê đơn và chuyển hướng sang Dược sĩ thật.

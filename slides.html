@@ -83,7 +83,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      padding: 50px 6% 80px 6%;
+      padding: 40px 6% 60px 6%;
       opacity: 0;
       transform: translateX(100px);
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
@@ -106,24 +106,24 @@
     .slide-header {
       width: 100%;
       max-width: 1200px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       text-align: left;
       align-self: flex-start;
       flex-shrink: 0;
     }
 
     .slide-category {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       color: var(--secondary);
       letter-spacing: 2px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: inline-block;
     }
 
     .slide-title {
-      font-size: 34px;
+      font-size: 32px;
       font-weight: 800;
       background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
       -webkit-background-clip: text;
@@ -144,8 +144,8 @@
     /* Grid layouts */
     .grid-2col {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
       width: 100%;
       align-items: stretch;
     }
@@ -153,7 +153,7 @@
     .grid-3col {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
       width: 100%;
       align-items: stretch;
     }
@@ -165,11 +165,12 @@
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
+      justify-content: center;
     }
 
     .glass-card:hover {
@@ -187,7 +188,7 @@
     }
 
     .title-slide h1 {
-      font-size: 52px;
+      font-size: 48px;
       font-weight: 900;
       margin-bottom: 12px;
       line-height: 1.15;
@@ -230,7 +231,7 @@
       padding: 12px 24px;
       border-radius: 50px;
       border: 1px solid rgba(255, 255, 255, 0.05);
-      max-width: 900px;
+      max-width: 950px;
     }
 
     .team-info span strong {
@@ -305,9 +306,9 @@
 
     /* Typography & Utilities */
     h3 {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: #fff;
     }
 
@@ -328,29 +329,28 @@
 
     p {
       color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 13.5px;
+      line-height: 1.5;
     }
 
     ul {
-      list-style-type: none;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     li {
       position: relative;
-      padding-left: 18px;
-      margin-bottom: 8px;
+      padding-left: 16px;
+      margin-bottom: 6px;
       color: var(--text-muted);
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 12.5px;
+      line-height: 1.4;
     }
 
     li::before {
       content: "•";
       color: var(--secondary);
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       position: absolute;
       left: 0;
       top: -3px;
@@ -373,13 +373,13 @@
     .slice-step {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 8px;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 6px;
     }
 
     .slice-label {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
       color: var(--secondary);
@@ -387,10 +387,29 @@
     }
 
     .slice-value {
-      font-size: 13px;
+      font-size: 12.5px;
       color: #f8fafc;
       font-weight: 500;
-      line-height: 1.4;
+      line-height: 1.35;
+    }
+
+    /* Embedded image container in slide */
+    .screenshot-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .screenshot-img {
+      max-width: 100%;
+      max-height: 360px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      object-fit: contain;
     }
 
     /* Step flow widget */
@@ -493,13 +512,13 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     th {
       text-align: left;
-      padding: 10px 14px;
-      font-size: 12px;
+      padding: 8px 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: var(--secondary);
       border-bottom: 2px solid rgba(255,255,255,0.06);
@@ -507,11 +526,11 @@
     }
 
     td {
-      padding: 10px 14px;
-      font-size: 12px;
+      padding: 8px 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
       border-bottom: 1px solid rgba(255,255,255,0.04);
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     tr:hover td {
@@ -538,19 +557,18 @@
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 8px;
-      padding: 12px;
+      padding: 10px;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 11px;
+      font-size: 10px;
       color: #cbd5e1;
       overflow-x: auto;
-      margin-top: 8px;
-      line-height: 1.4;
+      margin-top: 6px;
+      line-height: 1.35;
       text-align: left;
     }
 
     .code-kw { color: #f472b6; }
     .code-str { color: #34d399; }
-    .code-comment { color: #64748b; font-style: italic; }
   </style>
 </head>
 <body>
@@ -572,9 +590,15 @@
       <h2>Trợ lý ảo tư vấn chăm sóc cá nhân hóa & Safety Guardrail thông minh</h2>
       
       <div class="team-info">
+<<<<<<< Updated upstream
         <span>Nhóm: <strong>HealthCare AI Squad (Nhóm 5)</strong></span>
         <span>Lớp: <strong>C401</strong></span>
         <span>Thành viên: <strong>Vũ Tuấn Hoàng, Võ Huyền Khánh Mây, Phạm Quang Huy, Cao Văn Hảo, Vũ Quốc Tấn</strong></span>
+=======
+        <span>Nhóm: <strong>HealthCare AI Squad (Nhóm C5)</strong></span>
+        <span>Lớp: <strong>C403</strong></span>
+        <span>Thành viên: <strong>Vũ Tuấn Hoàng, Võ Huyền Khánh Mây, Nguyễn Thị Mai Anh, Cao Văn Hảo, Vũ Quốc Tấn</strong></span>
+>>>>>>> Stashed changes
       </div>
     </div>
 
@@ -588,23 +612,18 @@
         <div class="grid-2col">
           <div class="glass-card">
             <h3 class="highlight-text">Tự trải nghiệm & Teardown App Long Châu</h3>
-            <p style="margin-bottom: 12px;">Từ phân tích thực tế hành vi mua sắm trực tuyến của nhóm khách hàng thế hệ mới:</p>
+            <p style="margin-bottom: 8px;">Từ phân tích thực tế hành vi mua sắm trực tuyến của nhóm khách hàng thế hệ mới:</p>
             <ul>
-              <li><strong>Mê hồn trận sản phẩm:</strong> Tìm kiếm <em>"kem chống nắng cho da dầu mụn nhạy cảm"</em> trả về hơn 100 sản phẩm hỗn hợp (bao gồm cả thuốc đặc trị da liễu Rx). Không có bộ lọc chuyên biệt phân tích tình trạng da.</li>
-              <li><strong>Dịch vụ trực tuyến tắc nghẽn:</strong> Khi click nút <em>"Chat với Dược sĩ"</em>, hệ thống thường phản hồi sau <strong>5-15 phút</strong>.</li>
-              <li><strong>Nguyên nhân:</strong> Các Dược sĩ chuyên môn đang bị quá tải bởi các câu hỏi mua hàng đơn giản (ví dụ: tư vấn sữa rửa mặt, dầu gội, nước súc miệng).</li>
+              <li><strong>Mê hồn trận sản phẩm:</strong> Tìm kiếm skincare trả về hàng trăm kết quả hỗn tạp không có tư vấn phân loại cụ thể theo tình trạng da của khách.</li>
+              <li><strong>Dược sĩ quá tải:</strong> Phải chờ đợi từ 5-15 phút khi nhấn "Chat với Dược sĩ" do nhân sự bận trả lời những câu hỏi mua sắm thông thường.</li>
             </ul>
+            <p style="font-style: italic; margin-top: 10px; padding-left: 12px; border-left: 2px solid var(--secondary);">
+              "Mua skincare ở Long Châu chọn loại phù hợp mệt ghê. Hỏi dược sĩ ở quầy thì chị chỉ chuyên tư vấn thuốc trị bệnh..." 
+              <br><span style="font-size: 10px; color: var(--text-muted); font-style: normal;">— Trích Group Cộng đồng Skincare VN</span>
+            </p>
           </div>
-          <div class="glass-card">
-            <h3 class="highlight-text">Review Người Dùng Trên Store & MXH</h3>
-            <p style="font-style: italic; margin-bottom: 14px; padding-left: 12px; border-left: 2px solid var(--secondary);">
-              "Mua skincare ở Long Châu thì yên tâm chính hãng nhưng chọn loại phù hợp mệt ghê. Hỏi dược sĩ ở quầy thì chị chỉ chuyên tư vấn thuốc trị bệnh, hỏi kem chống nắng vật lý hay hóa học thì chị ú ớ..."
-              <br><span style="font-size: 11px; color: var(--text-muted); font-style: normal;">— Trích Group "Cộng đồng Skincare Việt Nam"</span>
-            </p>
-            <p style="font-style: italic; margin-bottom: 14px; padding-left: 12px; border-left: 2px solid var(--secondary);">
-              "App Long Châu nên có chatbot tư vấn mấy món rửa mặt, dầu gội cho nhanh. Nhắn tin dược sĩ toàn phải chờ lâu..."
-              <br><span style="font-size: 11px; color: var(--text-muted); font-style: normal;">— Đánh giá 3 sao trên App Store</span>
-            </p>
+          <div class="screenshot-container">
+            <img class="screenshot-img" data-src="real-case.jpg" alt="UX Evidence">
           </div>
         </div>
       </div>
@@ -620,18 +639,18 @@
         <div class="grid-2col">
           <div class="glass-card slice-card">
             <h3>Đặc tả luồng Build Slice</h3>
-            <p style="margin-bottom: 12px;"><strong>Cho:</strong> Khách hàng đang tìm mua sản phẩm trị mụn/chăm sóc da trên kênh chat Long Châu.</p>
-            <p style="margin-bottom: 12px;"><strong>AI sẽ:</strong> Tư vấn cá nhân hóa sữa rửa mặt phù hợp (Skincare Assistant) qua 3 câu hỏi ngắn; đồng thời tự động nhận diện chặn lọc các câu hỏi y khoa đặc trị (Safety Guardrail).</p>
-            <p style="margin-bottom: 12px;"><strong>Tạo ra:</strong> Danh sách 2-3 sản phẩm phù hợp kèm link mua hàng HOẶC thông điệp từ chối tư vấn y tế kèm nút kết nối khẩn cấp với Dược sĩ.</p>
+            <p style="margin-bottom: 8px;"><strong>Cho:</strong> Khách hàng đang tìm mua sản phẩm trị mụn/chăm sóc da trên kênh chat Long Châu.</p>
+            <p style="margin-bottom: 8px;"><strong>AI sẽ:</strong> Tư vấn cá nhân hóa sữa rửa mặt phù hợp (Skincare Assistant) qua các câu hỏi ngắn; đồng thời tự động nhận diện chặn lọc câu hỏi y khoa (Safety Guardrail).</p>
+            <p style="margin-bottom: 8px;"><strong>Tạo ra:</strong> Danh sách 2-3 sản phẩm phù hợp kèm link mua hàng HOẶC thông điệp từ chối tư vấn y tế kèm nút kết nối khẩn cấp với Dược sĩ.</p>
             <p><strong>Xử lý lỗi:</strong> Khi người dùng cố tình lách luật hỏi thuốc kê đơn → từ chối, hiển thị cảnh báo đỏ và định tuyến trực tiếp sang Dược sĩ thật.</p>
           </div>
           <div class="glass-card">
             <h3 class="highlight-text">Ranh Giới Nghiệp Vụ (Scope)</h3>
-            <h4 style="font-size: 13px; color: var(--secondary); margin: 8px 0 4px;">In-Scope (AI Tư Vấn Tự Động):</h4>
-            <p style="font-size: 12px; margin-bottom: 12px;">Dược mỹ phẩm (Skincare), Thực phẩm chức năng (TPCN), Chăm sóc cá nhân, Chăm sóc em bé, FAQ hệ thống (đổi trả, hotline, định vị chi nhánh).</p>
+            <h4 style="font-size: 13px; color: var(--secondary); margin: 6px 0 4px;">In-Scope (AI Tư Vấn Tự Động):</h4>
+            <p style="font-size: 12px; margin-bottom: 8px;">Dược mỹ phẩm (Skincare), Thực phẩm chức năng (TPCN), Chăm sóc cá nhân, Chăm sóc em bé, FAQ hệ thống (đổi trả, hotline, định vị chi nhánh).</p>
             
-            <h4 style="font-size: 13px; color: var(--danger); margin: 8px 0 4px;">Out-of-Scope (Chặn & Handover):</h4>
-            <p style="font-size: 12px;">Danh mục "Thuốc" (Medicines), chẩn đoán triệu chứng lâm sàng phức tạp, kê đơn thuốc đặc trị Rx, hoặc các chủ đề ngoài sức khỏe (thời tiết, tin tức, lập trình,...).</p>
+            <h4 style="font-size: 13px; color: var(--danger); margin: 6px 0 4px;">Out-of-Scope (Chặn & Handover):</h4>
+            <p style="font-size: 12px;">Danh mục "Thuốc" (Medicines), chẩn đoán triệu chứng lâm sàng phức tạp, kê đơn thuốc đặc trị Rx, hoặc các chủ đề ngoài sức khỏe.</p>
           </div>
         </div>
       </div>
@@ -649,8 +668,8 @@
             <h3 class="danger-text">Ngăn chặn tức thì ở mức máy chủ</h3>
             <p style="margin-bottom: 12px;">Trước khi gửi dữ liệu đầu vào của người dùng tới LLM, Backend Flask thực hiện quét tìm các từ khóa cấm để đảm bảo an toàn tuyệt đối và tiết kiệm token.</p>
             <ul>
-              <li class="danger-li"><strong>Danh sách hoạt chất kê đơn (Rx):</strong> <code>amoxicillin</code>, <code>ciprofloxacin</code>, <code>isotretinoin</code>, <code>clindamycin</code>, <code>kháng sinh</code>, <code>thuốc ngủ</code>, <code>steroid</code>, <code>cortico</code>,...</li>
-              <li class="danger-li"><strong>Triệu chứng red-flag y khoa:</strong> <code>sốt phát ban</code>, <code>đau bụng uống gì</code>, <code>chẩn đoán bệnh</code>, <code>mèo cắn</code>, <code>chó cắn</code>, <code>tiêm dại</code>, <code>ho ra máu</code>, <code>đi ngoài ra máu</code>,...</li>
+              <li class="danger-li"><strong>Danh sách hoạt chất kê đơn (Rx):</strong> <code>amoxicillin</code>, <code>ciprofloxacin</code>, <code>isotretinoin</code>, <code>clindamycin</code>, <code>kháng sinh</code>, <code>thuốc ngủ</code>,...</li>
+              <li class="danger-li"><strong>Triệu chứng red-flag y khoa:</strong> <code>sốt phát ban</code>, <code>đau bụng uống gì</code>, <code>chẩn đoán bệnh</code>, <code>mèo cắn</code>, <code>chó cắn</code>, <code>tiêm dại</code>, <code>ho ra máu</code>,...</li>
             </ul>
           </div>
           <div class="glass-card">
@@ -667,7 +686,6 @@
         <span class="code-kw">if</span> kw <span class="code-kw">in</span> msg: <span class="code-kw">return</span> <span class="code-kw">True</span>, kw
     <span class="code-kw">return</span> <span class="code-kw">False</span>, <span class="code-str">""</span>
             </div>
-            <p style="margin-top: 10px; font-size: 12px;">Kết quả quét `True` sẽ kích hoạt ngay lập tức khối tin nhắn cảnh báo y khoa màu đỏ ở Frontend mà không tốn tài nguyên gọi mô hình Gemini.</p>
           </div>
         </div>
       </div>
@@ -683,18 +701,17 @@
         <div class="grid-2col">
           <div class="glass-card">
             <h3 class="highlight-text">System Prompt Cho Trợ Lý NEO</h3>
-            <p style="margin-bottom: 12px;">Cấu hình nghiêm ngặt cho mô hình **Gemini 2.5 Flash** tại Backend:</p>
+            <p style="margin-bottom: 8px;">Cấu hình nghiêm ngặt cho mô hình **Gemini 2.5 Flash** tại Backend:</p>
             <ul>
               <li><strong>Ràng buộc sản phẩm:</strong> Chỉ tư vấn và gợi ý các sản phẩm có trong CSDL được truyền vào ngữ cảnh. Nghiêm cấm bịa đặt tên sản phẩm.</li>
               <li><strong>Ràng buộc hình thức:</strong> Phản hồi ngắn gọn, thân thiện (tối đa 5-6 dòng), bắt buộc hiển thị tên sản phẩm kèm giá bán.</li>
-              <li><strong>Chỉ thị chuyển giao:</strong> Nếu câu hỏi liên quan đến sản phẩm thuộc danh mục "Thuốc" (Medicines) hoặc câu hỏi y tế phức tạp → từ chối lịch sự và bắt buộc thêm thẻ <code style="color: var(--secondary)">[HANDOVER]</code> ở cuối câu.</li>
+              <li><strong>Chỉ thị chuyển giao:</strong> Nếu câu hỏi về sản phẩm thuộc danh mục "Thuốc" (Medicines) hoặc câu hỏi y tế phức tạp → từ chối lịch sự và thêm thẻ <code style="color: var(--secondary)">[HANDOVER]</code> ở cuối.</li>
             </ul>
           </div>
           <div class="glass-card">
             <h3 class="highlight-text">Quản Lý Context Lịch Sử Chat</h3>
-            <p style="margin-bottom: 10px;">Để tránh AI bị đánh lừa bởi các kịch bản Jailbreak qua nhiều lượt chat:</p>
+            <p style="margin-bottom: 8px;">Để tránh AI bị đánh lừa bởi các kịch bản Jailbreak qua nhiều lượt chat:</p>
             <ul>
-              <li class="warning-li">Hệ thống phân tích lịch sử chat trong hàm <code>call_gemini</code>.</li>
               <li class="warning-li">Tự động loại bỏ các cặp câu hỏi-trả lời cũ trong history nếu chúng chứa từ khóa bị chặn hoặc chứa các nội dung bị từ chối/cảnh báo.</li>
               <li class="warning-li">Giới hạn history tối đa 6 tin nhắn gần nhất để giữ tính tập trung vào câu hỏi hiện tại.</li>
             </ul>
@@ -730,7 +747,6 @@
                 <p style="color: #cbd5e1;">"Chào bạn, tôi là Dược sĩ Hằng trực phòng máy. Tôi vừa nhận được yêu cầu hỗ trợ về sản phẩm thuốc kê đơn. Vui lòng tải lên ảnh chụp đơn thuốc để được hỗ trợ mua hàng nhanh nhất."</p>
               </div>
             </div>
-            <p style="font-size: 11px; margin-top: 10px; text-align: center;">Mô phỏng luồng tiếp quản thực tế tại Frontend</p>
           </div>
         </div>
       </div>
@@ -748,21 +764,19 @@
             <h3 class="highlight-text">Cào dữ liệu tự động (Scraping Pipeline)</h3>
             <p style="margin-bottom: 12px;">Xây dựng công cụ cào dữ liệu song song từ API Long Châu thực tế để tạo cơ sở tri thức cho chatbot:</p>
             <ul>
-              <li>Sử dụng <code>ThreadPoolExecutor</code> với 5 worker luồng chạy song song để tăng tốc độ thu thập.</li>
+              <li>Sử dụng <code>ThreadPoolExecutor</code> với 5 worker chạy song song để tăng tốc độ thu thập.</li>
               <li>Phân tích hơn 50 từ khóa thương mại phổ biến trên 5 nhóm danh mục: Thuốc, Dược mỹ phẩm, TPCN, Chăm sóc em bé, Thiết bị y tế.</li>
-              <li>Trích xuất dữ liệu thô từ thẻ JSON <code>__NEXT_DATA__</code> của máy chủ NextJS để đảm bảo lấy cấu trúc dữ liệu gốc.</li>
+              <li>Trích xuất dữ liệu thô từ thẻ JSON <code>__NEXT_DATA__</code> của NextJS.</li>
             </ul>
           </div>
           <div class="glass-card">
             <h3 class="highlight-text">Cơ sở dữ liệu sản phẩm chuẩn hóa</h3>
-            <p style="margin-bottom: 8px;">Dữ liệu sau khi cào được lưu trữ dưới dạng JSON ([products.json](file:///c:/Vinuni/Hackathon/longchau_clone/products.json)) gồm các trường thông tin:</p>
+            <p style="margin-bottom: 8px;">Dữ liệu sau khi cào được lưu trữ dưới dạng JSON gồm các trường thông tin:</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
               <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>name:</strong> Tên hiển thị web</div>
               <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>slug:</strong> Đường dẫn SP</div>
               <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>price/unit:</strong> Giá bán & đơn vị</div>
               <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>is_prescription:</strong> Cờ Rx</div>
-              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>ingredients:</strong> Hoạt chất</div>
-              <div style="background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px;">• <strong>uses/warnings:</strong> Công dụng/Cảnh báo</div>
             </div>
             <p style="margin-top: 10px; font-size: 12px;">Cơ sở dữ liệu bao gồm hơn 500+ sản phẩm chi tiết đang được sử dụng trực tiếp trong ứng dụng.</p>
           </div>
@@ -816,7 +830,40 @@
       </div>
     </div>
 
-    <!-- Slide 9: Technical Architecture Detail -->
+    <!-- Slide 9: Prototype Screenshot Evidence -->
+    <div class="slide">
+      <div class="slide-header">
+        <span class="slide-category">Bằng chứng hoạt động</span>
+        <h2 class="slide-title">Bằng Chứng Kiểm Thử Hệ Thống (Screenshots)</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3col">
+          <div class="glass-card" style="padding: 12px; align-items: center;">
+            <div class="screenshot-container" style="height: 180px;">
+              <img class="screenshot-img" data-src="neo_happy_01.png" alt="Happy Path Chat" style="max-height: 170px;">
+            </div>
+            <h4 style="font-size: 12px; margin-top: 8px; color: var(--secondary);">Happy Case Skincare</h4>
+            <p style="font-size: 11px; text-align: center; margin-top: 4px;">Tư vấn và đề xuất sản phẩm kèm giá + link chi tiết.</p>
+          </div>
+          <div class="glass-card" style="padding: 12px; align-items: center;">
+            <div class="screenshot-container" style="height: 180px;">
+              <img class="screenshot-img" data-src="hpc-1.png" alt="Blocked Medical" style="max-height: 170px;">
+            </div>
+            <h4 style="font-size: 12px; margin-top: 8px; color: var(--danger);">Blocked Rx Medicine</h4>
+            <p style="font-size: 11px; text-align: center; margin-top: 4px;">Nhận diện kháng sinh, chặn và kích hoạt cảnh báo y tế.</p>
+          </div>
+          <div class="glass-card" style="padding: 12px; align-items: center;">
+            <div class="screenshot-container" style="height: 180px;">
+              <img class="screenshot-img" data-src="bug-3.png" alt="Human Handover UI" style="max-height: 170px;">
+            </div>
+            <h4 style="font-size: 12px; margin-top: 8px; color: var(--warning);">Pharmacist Handover</h4>
+            <p style="font-size: 11px; text-align: center; margin-top: 4px;">Chuyển đổi giao diện chat sang Dược sĩ thật ngay lập tức.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Technical Architecture Detail -->
     <div class="slide">
       <div class="slide-header">
         <span class="slide-category">Kiến trúc kỹ thuật</span>
@@ -835,7 +882,7 @@
           </div>
           <div class="glass-card">
             <h3 class="highlight-text">Mô tả Luồng Dữ Liệu Chi Tiết</h3>
-            <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 10px; padding: 16px; font-size: 12px; line-height: 1.6;">
+            <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; font-size: 11.5px; line-height: 1.5;">
               <strong>1. Client request:</strong> Người dùng truy cập hoặc tương tác với Chatbot.<br>
               <strong>2. Server Proxying:</strong> Lấy dữ liệu tĩnh gốc nếu chưa có trong đệm, rewrite lại URL rồi gửi cho Client.<br>
               <strong>3. API Query:</strong> Client gọi API chat/tìm kiếm. Backend kiểm soát đầu vào an toàn.<br>
@@ -847,7 +894,7 @@
       </div>
     </div>
 
-    <!-- Slide 10: Feasibility, Costs & Feedback Loop -->
+    <!-- Slide 11: Feasibility, Costs & Feedback Loop -->
     <div class="slide">
       <div class="slide-header">
         <span class="slide-category">Khả thi & Tối ưu</span>
@@ -868,18 +915,14 @@
             <p style="margin-bottom: 10px;">Để AI ngày càng hoàn thiện sau mỗi phiên chat của người dùng:</p>
             <ul>
               <li><strong>Lưu vết tự động:</strong> Khi người dùng bấm nút "Không phù hợp" hoặc khi hệ thống kích hoạt Handover, chi tiết cuộc chat được lưu tự động vào file <code>feedback_log.json</code>.</li>
-              <li><strong>Quy trình bảo trì hàng tuần:</strong> Đội ngũ quản trị sẽ duyệt lại log này để:
-                <br>1. Thêm hoạt chất mới vào Backend Blacklist.
-                <br>2. Cập nhật và tinh chỉnh Prompt của Gemini.
-                <br>3. Mở rộng tập dữ liệu kịch bản kiểm thử (Jailbreak test cases).
-              </li>
+              <li><strong>Quy trình bảo trì hàng tuần:</strong> Đội ngũ quản trị sẽ duyệt lại log này để thêm hoạt chất mới vào Backend Blacklist, tinh chỉnh Prompt và mở rộng tập dữ liệu kịch bản kiểm thử.</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Slide 11: Team & Task Allocation -->
+    <!-- Slide 12: Team & Task Allocation -->
     <div class="slide">
       <div class="slide-header">
         <span class="slide-category">Nhóm thực hiện</span>
@@ -925,12 +968,12 @@
       </div>
     </div>
 
-    <!-- Slide 12: Q&A / Thank you -->
+    <!-- Slide 13: Q&A / Thank you -->
     <div class="slide title-slide">
       <div class="badge-ai" style="background: linear-gradient(135deg, var(--secondary), var(--primary));">Cảm ơn hội đồng giám khảo</div>
       <h1 style="font-size: 64px;">Q & A</h1>
       <h2 style="color: var(--secondary); font-weight: 600;">Chúng em sẵn sàng tiếp nhận câu hỏi phản biện</h2>
-      <p style="max-width: 600px; margin: 0 auto; text-align: center; margin-top: 20px;">Dự án FPT Long Châu AI Chatbot NEO - Nhóm 5 Lớp C401.<br>Bản quyền Prototype thuộc về HealthCare AI Squad.</p>
+      <p style="max-width: 600px; margin: 0 auto; text-align: center; margin-top: 20px;">Dự án FPT Long Châu AI Chatbot NEO - Nhóm C5 Lớp C403.<br>Bản quyền Prototype thuộc về HealthCare AI Squad.</p>
     </div>
 
   </div>
@@ -951,10 +994,10 @@
 
   <!-- Slide Number Indicator -->
   <div class="slide-number">
-    <span id="currentNum">1</span> / <span id="totalNum">12</span>
+    <span id="currentNum">1</span> / <span id="totalNum">13</span>
   </div>
 
-  <!-- Navigation Script -->
+  <!-- Navigation and Image Loader Script -->
   <script>
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
@@ -1004,6 +1047,15 @@
           navigateSlide(-1);
         }
       }
+    });
+
+    // Dynamic Image Path Resolver
+    document.addEventListener('DOMContentLoaded', () => {
+      const isRepoTemp = window.location.pathname.includes('/repo_temp/');
+      const basePath = isRepoTemp ? 'spec/evidence-screen-shots/' : 'repo_temp/spec/evidence-screen-shots/';
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        img.src = basePath + img.getAttribute('data-src');
+      });
     });
   </script>
 </body>
